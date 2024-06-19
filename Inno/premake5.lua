@@ -23,18 +23,18 @@ project "Inno"
 		"GLFW_INCLUDE_NONE"
 	}
 
-	includedirs
-	{
-		"src",
-		"%{IncludeDirs.spdlog}",
-		"%{IncludeDirs.glfw}"
-	}
+	includedirs { "src" }
+	for _, dir in pairs(IncludeDirs) do
+		includedirs { dir }
+	end
 
 	links
 	{
-		"GLFW"
+		"GLFW",
+		"opengl32.lib",
 	}
 
+	-----------PLATFORMS-----------
 	filter "system:windows"
 		systemversion "latest"
 
@@ -42,15 +42,43 @@ project "Inno"
 		{
 			"INNO_PLATFORM_WINDOWS",
 		}
-		
+
+	filter "system:linux"
+		defines
+		{
+			"INNO_PLATFORM_LINUX",
+		}
+	
+	filter "system:macosx"
+		defines
+		{
+			"INNO_PLATFORM_MACOS",
+		}
+	
+	-----------CONFIGURATIONS-----------
 	filter "configurations:Debug"
 		defines "INNO_DEBUG"
 		symbols "on"
+
+		defines
+		{
+			"INNO_DEBUG"
+		}
 
 	filter "configurations:Release"
 		defines "INNO_RELEASE"
 		optimize "on"
 
+		defines
+		{
+			"INNO_RELEASE"
+		}
+
 	filter "configurations:Dist"
 		defines "INNO_DIST"
 		optimize "on"
+
+		defines
+		{
+			"INNO_DIST"
+		}

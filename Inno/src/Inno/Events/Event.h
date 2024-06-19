@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Inno/Core.h"
-
 namespace Inno
 {
 	/*

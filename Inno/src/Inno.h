@@ -4,10 +4,10 @@
 The output APIs.should only be used by client applications, should not be used by "Inno" directories
 */
 
-#include "Inno/Application.h"
-#include "Inno/Log.h"
+#include "Inno/Core/Application.h"
+#include "Inno/Core/Log.h"
 
 // ---------------Entry Point--------------- //
-#include "Inno/EntryPoint.h"
+#include "Inno/Core/EntryPoint.h"
 // ----------------------------------------- //
 

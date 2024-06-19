@@ -15,17 +15,17 @@ project "SandBox"
 		"src/**.c",
 	}
 
-	includedirs
-	{
-		"%{wks.location}/Inno/src",
-		"%{IncludeDirs.spdlog}",
-	}
+	includedirs{ "%{wks.location}/Inno/src" }
+	for _, dir in pairs(IncludeDirs) do
+		includedirs { dir }
+	end
 
 	links
 	{
 		"Inno"
 	}
 
+	-----------PLATFORMS-----------
 	filter "system:windows"
 		systemversion "latest"
 
@@ -34,6 +34,19 @@ project "SandBox"
 			"INNO_PLATFORM_WINDOWS"
 		}
 
+	filter "system:linux"
+		defines
+		{
+			"INNO_PLATFORM_LINUX",
+		}
+	
+	filter "system:macosx"
+		defines
+		{
+			"INNO_PLATFORM_MACOS",
+		}
+
+	-----------CONFIGURATIONS-----------
 	filter "configurations:Debug"
 		defines "INNO_DEBUG"
 		symbols "on"

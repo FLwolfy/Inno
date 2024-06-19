@@ -1,4 +1,4 @@
-include "dependencies.lua"
+include "Dependencies/dependencies.lua"
 
 workspace "Inno"
 	architecture "x64"
@@ -18,12 +18,12 @@ workspace "Inno"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-group "Core"
-	include "Inno"
+group "Dependencies"
+	include "Dependencies/glfw"
 group ""
 
-group "Dependencies"
-	include "Inno/dependencies/glfw"
+group "Core"
+	include "Inno"
 group ""
 
 group "Misc"
