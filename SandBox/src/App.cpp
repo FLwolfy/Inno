@@ -3,15 +3,9 @@
 class App : public Inno::Application
 {
 public:
-	App()
-	{
+	App() {}
 
-	}
-
-	~App()
-	{
-
-	}
+	~App() {}
 };
 
 /*

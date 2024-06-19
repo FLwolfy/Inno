@@ -2,13 +2,13 @@
 
 // ---------------Platforms--------------- //
 #ifdef INNO_PLATFORM_WINDOWS
-	#ifdef INNO_BUILD_DLL
-		#define INNO_API __declspec(dllexport)
-	#else
-		#define INNO_API __declspec(dllimport)
-	#endif
+	// Windows API
+#elif INNO_PLATFORM_LINUX
+	// Linux API
+#elif INNO_PLATFORM_MACOS
+	// Mac API
 #else
-	// Inno now only supports Windows!
+	// Inno Not Supported
 #endif
 
 // ---------------Core Consts--------------- //

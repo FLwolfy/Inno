@@ -4,7 +4,7 @@
 
 namespace Inno
 {
-	class INNO_API Application
+	class Application
 	{
 	public:
 		Application();

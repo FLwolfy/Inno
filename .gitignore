@@ -111,6 +111,8 @@ $RECYCLE.BIN/
 
 # Solution
 *.sln
+*.vcxproj
+*.vcxproj.filters
 
 # Build Generated
 bin/

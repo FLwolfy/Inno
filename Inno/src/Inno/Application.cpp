@@ -1,4 +1,8 @@
+#include "pch.h"
 #include "Application.h"
+
+#include "Inno/Log.h"
+#include "Inno/Events/ApplicationEvent.h"	
 
 namespace Inno
 {
@@ -12,9 +16,9 @@ namespace Inno
 
 	void Application::Run()
 	{
-		while (true)
-		{
+		WindowResizeEvent e(1280, 720);
+		INNO_LOGTRACE(e);
 
-		}
+		while (true);
 	}
 }
