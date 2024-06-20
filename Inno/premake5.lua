@@ -23,15 +23,19 @@ project "Inno"
 		"GLFW_INCLUDE_NONE"
 	}
 
+	-----------DEPENDENCIES & LIBRARIES-----------
 	includedirs { "src" }
 	for _, dir in pairs(IncludeDirs) do
 		includedirs { dir }
 	end
+	for _, dir in pairs(Libraries) do
+		links { dir }
+	end
 
+	-----------PROJECTS LINKS-----------
 	links
 	{
-		"GLFW",
-		"opengl32.lib",
+		"GLFW"
 	}
 
 	-----------PLATFORMS-----------

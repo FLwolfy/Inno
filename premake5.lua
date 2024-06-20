@@ -1,3 +1,4 @@
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 include "Dependencies/dependencies.lua"
 
 workspace "Inno"
@@ -15,8 +16,6 @@ workspace "Inno"
 	{
 		"MultiProcessorCompile"
 	}
-
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 group "Dependencies"
 	include "Dependencies/glfw"

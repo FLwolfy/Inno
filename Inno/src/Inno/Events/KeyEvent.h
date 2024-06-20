@@ -1,21 +1,22 @@
 #pragma once
 
 #include "Event.h"
+#include "Inno/Core/Keycode.h"
 
 namespace Inno
 {
 	class KeyEvent : public Event
 	{
 	public:
-		inline int GetKeyCode() const { return m_KeyCode; }
+		inline int GetKeyCode() const { return m_Keycode; }
 
 		DEFINE_EVENT_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
 	protected:
-		int m_KeyCode;
+		int m_Keycode;
 
 		KeyEvent(int keycode)
-			: m_KeyCode(keycode) {}
+			: m_Keycode(keycode) {}
 	};
 
 	class KeyPressedEvent : public KeyEvent
@@ -29,7 +30,7 @@ namespace Inno
 		std::string ToString() const override
 		{
 			std::stringstream sstream;
-			sstream << "KeyPressedEvent: " << m_KeyCode << " (" << m_RepeatCount << " repeats)";
+			sstream << "KeyPressedEvent: " << m_Keycode << " (" << m_RepeatCount << " repeats)";
 			return sstream.str();
 		}
 
@@ -39,19 +40,35 @@ namespace Inno
 		int m_RepeatCount;
 	};
 
-	class KeyReleaseEvent : public KeyEvent
+	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleaseEvent(int keycode)
+		KeyReleasedEvent(int keycode)
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override
 		{
 			std::stringstream sstream;
-			sstream << "KeyReleaseEvent: " << m_KeyCode;
+			sstream << "KeyReleaseEvent: " << m_Keycode;
 			return sstream.str();
 		}
 
 		DEFINE_EVENT_TYPE(KeyReleased)
+	};
+
+	class KeyTypedEvent : public KeyEvent
+	{
+	public:
+		KeyTypedEvent(const Keycode keycode)
+			: KeyEvent(keycode) {}
+
+		std::string ToString() const override
+		{
+			std::stringstream sstream;
+			sstream << "KeyTypedEvent: " << m_Keycode;
+			return sstream.str();
+		}
+
+		DEFINE_EVENT_TYPE(KeyTyped)
 	};
 }

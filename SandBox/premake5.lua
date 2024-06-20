@@ -15,11 +15,13 @@ project "SandBox"
 		"src/**.c",
 	}
 
+	-----------DEPENDENCIES-----------
 	includedirs{ "%{wks.location}/Inno/src" }
 	for _, dir in pairs(IncludeDirs) do
 		includedirs { dir }
 	end
 
+	-----------PROJECTS LINKS-----------
 	links
 	{
 		"Inno"

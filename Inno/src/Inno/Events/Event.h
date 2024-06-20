@@ -31,6 +31,8 @@ namespace Inno
 		friend class EventDispatcher;
 
 	public:
+		bool IsHandled = false;
+
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
@@ -45,26 +47,23 @@ namespace Inno
 		{
 			return ToString();
 		}
-
-	protected:
-		bool m_IsHandled = false;
 	};
 
 	class EventDispatcher
 	{
 		template<typename T>
-		using EventFn = std::function<bool(T&)>;
+		using EventFunc = std::function<bool(T&)>;
 
 	public:
 		EventDispatcher(Event& event)
 			: m_Event(event) {}
 
 		template<typename T>
-		bool Dispatch(EventFn<T> func)
+		bool Dispatch(EventFunc<T> func)
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.m_IsHandled = func(*(T*)&m_Event);
+				m_Event.IsHandled = func(*(T*)&m_Event);
 				return true;
 			}
 

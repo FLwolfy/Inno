@@ -11,7 +11,7 @@
 	// Inno Not Supported
 #endif
 
-// ---------------Core Consts--------------- //
+// ---------------Macros Consts--------------- //
 #ifdef INNO_DEBUG
 	#include "Inno/Core/Log.h"
 	#define INNO_ASSERT(x, ...) { if (!x) { INNO_LOGERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
@@ -20,4 +20,6 @@
 	#define INNO_ASSERT(x, ...) // Strip it
 	#define INNO_CORE_ASSERT(x, ...) // Strip it
 #endif
+
+#define BIND_FUNC(function, instance) std::bind(&function, instance, std::placeholders::_1)
 

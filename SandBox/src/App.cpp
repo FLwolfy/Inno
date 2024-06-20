@@ -1,9 +1,21 @@
 #include <Inno.h>
 
+class ExampleLayer : public Inno::Layer
+{
+public:
+	ExampleLayer()
+		: Layer("Example") {}
+
+	virtual void OnUpdate() override
+	{
+		INNO_LOGINFO("ExampleLayer Update!");
+	}
+};
+
 class App : public Inno::Application
 {
 public:
-	App() {}
+	App() { PushLayer(new ExampleLayer()); }
 
 	~App() {}
 };
