@@ -26,52 +26,80 @@ namespace Inno
 		EventCategoryMouseButton = 1 << 4
 	};
 
+	/// <summary>
+	/// Base class for all events in the Inno engine.
+	/// </summary>
 	class Event
 	{
-		friend class EventDispatcher;
+		template<typename T, typename = std::enable_if_t<std::is_base_of<Event, T>::value>>
+		using EventFunc = std::function<bool(T&)>;
 
 	public:
+		/// <summary>
+		/// Flag indicating whether the event has been handled.
+		/// </summary>
 		bool IsHandled = false;
 
+		/// <summary>
+		/// Retrieves the type of the event.
+		/// </summary>
+		/// <returns>Type of the event as an EventType enum value.</returns>
 		virtual EventType GetEventType() const = 0;
+
+		/// <summary>
+		/// Retrieves the name of the event.
+		/// </summary>
+		/// <returns>Name of the event as a C-string.</returns>
 		virtual const char* GetName() const = 0;
+
+		/// <summary>
+		/// Retrieves the category flags of the event.
+		/// </summary>
+		/// <returns>Category flags of the event.</returns>
 		virtual int GetCategoryFlags() const = 0;
+
+		/// <summary>
+		/// Converts the event to a string representation (default implementation returns the name).
+		/// </summary>
+		/// <returns>String representation of the event.</returns>
 		virtual std::string ToString() const { return GetName(); }
 
+		/// <summary>
+		/// Checks if the event belongs to a specified category.
+		/// </summary>
+		/// <param name="category">Category to check against.</param>
+		/// <returns>True if the event belongs to the specified category, false otherwise.</returns>
 		inline bool IsInCategory(EventCategory category)
 		{
 			return GetCategoryFlags() & category;
 		}
 
-		operator std::string() const 
-		{
-			return ToString();
-		}
-	};
-
-	class EventDispatcher
-	{
-		template<typename T>
-		using EventFunc = std::function<bool(T&)>;
-
-	public:
-		EventDispatcher(Event& event)
-			: m_Event(event) {}
-
-		template<typename T>
+		/// <summary>
+		/// Dispatches the event to a handler function. If the event type match the dispatched type T, the handler function will be called.
+		/// </summary>
+		/// <typeparam name="T">: Type of the event to dispatch.</typeparam>
+		/// <param name="func">: Handler function that takes the event as a reference.</param>
+		/// <returns>True if the event was dispatched and handled, false otherwise.</returns>
+		template<typename T, typename = std::enable_if_t<std::is_base_of<Event, T>::value>>
 		bool Dispatch(EventFunc<T> func)
 		{
-			if (m_Event.GetEventType() == T::GetStaticType())
+			if (GetEventType() == T::GetStaticType())
 			{
-				m_Event.IsHandled = func(*(T*)&m_Event);
+				IsHandled = func(*(T*)this);
 				return true;
 			}
 
 			return false;
 		}
 
-	private:
-		Event& m_Event;
+		/// <summary>
+		/// Converts the event to a string representation.
+		/// </summary>
+		/// <returns>String representation of the event.</returns>
+		operator std::string() const
+		{
+			return ToString();
+		}
 	};
 
 	inline std::ostream& operator<<(std::ostream& os, const Event& e)
@@ -79,10 +107,18 @@ namespace Inno
 		return os << e.ToString();
 	}
 
-	#define DEFINE_EVENT_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
-									virtual EventType GetEventType() const override { return GetStaticType(); }\
-									virtual const char* GetName() const override { return #type; }
+	/// <summary>
+	/// Macro for defining the static type and getter methods for an event type.
+	/// </summary>
+	#define DEFINE_EVENT_TYPE(type) \
+			static EventType GetStaticType() { return EventType::type; } \
+			virtual EventType GetEventType() const override { return GetStaticType(); } \
+			virtual const char* GetName() const override { return #type; }
 
-	#define DEFINE_EVENT_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
+	/// <summary>
+	/// Macro for defining the category flags getter method for an event.
+	/// </summary>
+	#define DEFINE_EVENT_CATEGORY(category) \
+			virtual int GetCategoryFlags() const override { return category; }
 }
 

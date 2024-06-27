@@ -18,7 +18,11 @@ workspace "Inno"
 	}
 
 group "Dependencies"
-	include "Dependencies/glfw"
+	for _, lua in pairs(IncludeLuas) do
+		include(lua)
+	end
+	-- include "Dependencies/glfw"
+	-- include "Dependencies/glad"
 group ""
 
 group "Core"

@@ -8,21 +8,21 @@ namespace Inno
 	class KeyEvent : public Event
 	{
 	public:
-		inline int GetKeyCode() const { return m_Keycode; }
+		inline unsigned int GetKeyCode() const { return m_Keycode; }
 
 		DEFINE_EVENT_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
 	protected:
-		int m_Keycode;
+		unsigned int m_Keycode;
 
-		KeyEvent(int keycode)
+		KeyEvent(unsigned int keycode)
 			: m_Keycode(keycode) {}
 	};
 
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
+		KeyPressedEvent(unsigned int keycode, int repeatCount)
 			: KeyEvent(keycode), m_RepeatCount(repeatCount) {}
 
 		inline int GetRepeatCount() const { return m_RepeatCount; }
@@ -43,7 +43,7 @@ namespace Inno
 	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keycode)
+		KeyReleasedEvent(unsigned int keycode)
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override
@@ -59,7 +59,7 @@ namespace Inno
 	class KeyTypedEvent : public KeyEvent
 	{
 	public:
-		KeyTypedEvent(const Keycode keycode)
+		KeyTypedEvent(unsigned int keycode)
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override

@@ -7,18 +7,18 @@
 #include "Inno/Events/KeyEvent.h"
 #include "Inno/Events/MouseEvent.h"
 
+#include <glad/glad.h>
+
 namespace Inno
 {
-	#ifdef INNO_PLATFORM_WINDOWS
-
 	static unsigned int s_GLFWWindowCount = 0;
 
 	Window* Window::Create(const WindowProperties& properties)
 	{
-		return new WindowsWindow(properties);
+		return new Window(properties);
 	}
 
-	WindowsWindow::WindowsWindow(const WindowProperties& properties)
+	Window::Window(const WindowProperties& properties)
 	{
 		m_Data.Title = properties.Title;
 		m_Data.Width = properties.Width;
@@ -35,6 +35,10 @@ namespace Inno
 
 		m_Window = glfwCreateWindow((int)properties.Width, (int)properties.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+
+		int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		INNO_CORE_ASSERT(success, "Initializing GLAD failed!")
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -52,6 +56,7 @@ namespace Inno
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
 			WindowCloseEvent event;
 			data.EventCallback(event);
 		});
@@ -140,7 +145,7 @@ namespace Inno
 		s_GLFWWindowCount++;
 	}
 
-	WindowsWindow::~WindowsWindow()
+	Window::~Window()
 	{
 		glfwDestroyWindow(m_Window);
 		s_GLFWWindowCount--;
@@ -151,13 +156,13 @@ namespace Inno
 		}
 	}
 
-	void WindowsWindow::OnUpdate()
+	void Window::OnUpdate()
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
 	}
 
-	void WindowsWindow::SetVSync(bool enabled)
+	void Window::SetVSync(bool enabled)
 	{
 		if (enabled)
 		{
@@ -171,10 +176,8 @@ namespace Inno
 		m_Data.VSync = enabled;
 	}
 
-	bool WindowsWindow::IsVSync() const
+	bool Window::IsVSync() const
 	{
 		return m_Data.VSync;
 	}
-
-	#endif
 }

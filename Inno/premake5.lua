@@ -10,6 +10,13 @@ project "Inno"
 	pchheader "pch.h"
 	pchsource "src/pch.cpp"
 
+	-----------INCLUDE DIRECTORIES-----------
+	includedirs 
+	{ 
+		"src" 
+	}
+
+	-----------COMPILE FILES-----------
 	files
 	{
 		"src/**.h",
@@ -23,20 +30,20 @@ project "Inno"
 		"GLFW_INCLUDE_NONE"
 	}
 
-	-----------DEPENDENCIES & LIBRARIES-----------
-	includedirs { "src" }
+	-----------DEPENDENCIES-----------
 	for _, dir in pairs(IncludeDirs) do
 		includedirs { dir }
 	end
+
+	-----------LIBRARIES-----------
 	for _, dir in pairs(Libraries) do
 		links { dir }
 	end
 
 	-----------PROJECTS LINKS-----------
-	links
-	{
-		"GLFW"
-	}
+	for _, proj in pairs(IncludeProjs) do
+		links { proj }
+	end
 
 	-----------PLATFORMS-----------
 	filter "system:windows"

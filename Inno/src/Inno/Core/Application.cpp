@@ -6,8 +6,13 @@
 
 namespace Inno
 {
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application()
 	{
+		INNO_CORE_ASSERT(!s_Instance, "Application already exists!");
+		s_Instance = this;
+
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_FUNC(Application::OnEvent, this));
 	}
@@ -17,19 +22,20 @@ namespace Inno
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 	
 	void Application::PushOverlay(Layer* layer)
 	{
 		m_LayerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 
 	void Application::OnEvent(Event& event)
 	{
-		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_FUNC(Application::OnWindowClose, this));
+		event.Dispatch<WindowCloseEvent>(BIND_FUNC(Application::OnWindowClose, this));
 
-		// INNO_CORE_LOGTRACE(event);
+		INNO_CORE_LOGTRACE(event);
 
 		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
 		{

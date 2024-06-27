@@ -3,12 +3,12 @@
 project "GLFW"
 	kind "StaticLib"
 	language "C"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	-----------INCLUDES FILES-----------
+	-----------COMPILE FILES-----------
 	files
 	{
 		"src/include/GLFW/glfw3.h",
