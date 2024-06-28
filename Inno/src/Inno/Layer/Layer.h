@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Inno/Events/Event.h"
+#include "Inno/Event/Event.h"
 
 namespace Inno
 {
@@ -46,6 +46,7 @@ namespace Inno
 		{
 			return GetName();
 		}
+
 	protected:
 		/// <summary>
 		/// The name of the layer.

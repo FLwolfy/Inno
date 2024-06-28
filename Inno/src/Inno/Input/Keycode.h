@@ -11,7 +11,6 @@ namespace Inno
 	{
 		enum : Keycode
 		{
-			#ifdef INNO_PLATFORM_WINDOWS
 			// From glfw3.h
 			Space = 32,
 			Apostrophe = 39, /* ' */
@@ -143,7 +142,6 @@ namespace Inno
 			RightAlt = 346,
 			RightSuper = 347,
 			Menu = 348
-			#endif
 		};
 	}
 }

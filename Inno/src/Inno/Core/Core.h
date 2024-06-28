@@ -52,3 +52,10 @@
 /// <returns>A std::function object that can be called with the specified function and instance.</returns>
 #define BIND_FUNC(func, instance) std::bind(&func, instance, std::placeholders::_1)
 
+/// <summary>
+/// Encapsulates template definition with a base type constraint.
+/// </summary>
+/// <param name="T">: The generate type template.</param>
+/// <param name="base">: The base type T should inherit from.</param>
+#define GENERIC_TYPE(T, base) template<typename T, typename = std::enable_if_t<std::is_base_of<base, T>::value>>
+

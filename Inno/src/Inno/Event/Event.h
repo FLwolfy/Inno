@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Inno/Core/Core.h"
+
 namespace Inno
 {
 	/*
@@ -31,7 +33,7 @@ namespace Inno
 	/// </summary>
 	class Event
 	{
-		template<typename T, typename = std::enable_if_t<std::is_base_of<Event, T>::value>>
+		GENERIC_TYPE(T, Event)
 		using EventFunc = std::function<bool(T&)>;
 
 	public:
@@ -40,6 +42,7 @@ namespace Inno
 		/// </summary>
 		bool IsHandled = false;
 
+	public:
 		/// <summary>
 		/// Retrieves the type of the event.
 		/// </summary>
@@ -80,12 +83,12 @@ namespace Inno
 		/// <typeparam name="T">: Type of the event to dispatch.</typeparam>
 		/// <param name="func">: Handler function that takes the event as a reference.</param>
 		/// <returns>True if the event was dispatched and handled, false otherwise.</returns>
-		template<typename T, typename = std::enable_if_t<std::is_base_of<Event, T>::value>>
+		GENERIC_TYPE(T, Event)
 		bool Dispatch(EventFunc<T> func)
 		{
 			if (GetEventType() == T::GetStaticType())
 			{
-				IsHandled = func(*(T*)this);
+				IsHandled = func(static_cast<T&>(*this));
 				return true;
 			}
 

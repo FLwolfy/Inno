@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Inno/Core/Window.h"
-#include "Inno/Core/Layer.h"
-#include "Inno/Core/LayerStack.h"
-#include "Inno/Events/ApplicationEvent.h"
+#include "Inno/Layer/Layer.h"
+#include "Inno/Layer/LayerStack.h"
+#include "Inno/Event/ApplicationEvent.h"
 
 namespace Inno
 {
@@ -52,9 +52,10 @@ namespace Inno
 		static Application* s_Instance;
 
 		std::unique_ptr<Window> m_Window;
-		bool m_IsRunning = true;
 		LayerStack m_LayerStack;
+        bool m_IsRunning = true;
 
+    private:
 		bool OnWindowClose(WindowCloseEvent& event);
 	};
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "pch.h"
-#include "Inno/Events/Event.h"
+#include "Inno/Event/Event.h"
 
 #include <GLFW/glfw3.h>
 
@@ -17,6 +17,7 @@ namespace Inno
 		unsigned int Width;         ///< The width of the window.
 		unsigned int Height;        ///< The height of the window.
 
+    public:
 		/// <summary>
 		/// Constructs window properties with specified title, width, and height.
 		/// </summary>
@@ -34,36 +35,50 @@ namespace Inno
     /// </summary>
     class Window
     {
-    public:
         using EventCallbackFn = std::function<void(Event&)>;   ///< Event callback function type.
 
+        struct WindowData
+        {
+            std::string Title;
+            unsigned int Width, Height;
+            bool VSync;
+            EventCallbackFn EventCallback;
+        };
+
+    public:
         /// <summary>
         /// Constructs a window with the specified properties.
         /// </summary>
         /// <param name="properties">: The properties of the window.</param>
         Window(const WindowProperties& properties);
-
         /// <summary>
         /// Virtual destructor for the window class.
         /// </summary>
-        virtual ~Window();
+        ~Window();
+
+        /// <summary>
+        /// Creates a new window with the specified properties.
+        /// </summary>
+        /// <param name="properties">: The properties of the window to be created.</param>
+        /// <returns>A pointer to the newly created Window object.</returns>
+        static Window* Create(const WindowProperties& properties = WindowProperties());
 
         /// <summary>
         /// Updates the window.
         /// </summary>
-        virtual void OnUpdate();
+        void OnUpdate();
 
         /// <summary>
         /// Sets whether vertical sync (VSync) is enabled.
         /// </summary>
         /// <param name="enabled">: True to enable VSync, false otherwise.</param>
-        virtual void SetVSync(bool enabled);
+        void SetVSync(bool enabled);
 
         /// <summary>
         /// Checks if VSync is currently enabled.
         /// </summary>
         /// <returns>True if VSync is enabled, false otherwise.</returns>
-        virtual bool IsVSync() const;
+        bool IsVSync() const;
 
         /// <summary>
         /// Retrieves the width of the window.
@@ -78,27 +93,18 @@ namespace Inno
         inline unsigned int GetHeight() const { return m_Data.Height; }
 
         /// <summary>
+        /// Gets the native GLFW window instance of the current window.
+        /// </summary>
+        /// <returns>The native GLFW window instance.</returns>
+        inline GLFWwindow* GetNativeWindow() const{ return m_Window; }
+
+        /// <summary>
         /// Sets the event callback function for handling window events.
         /// </summary>
         /// <param name="callback">: The event callback function.</param>
         inline void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
 
-        /// <summary>
-        /// Creates a new window with the specified properties.
-        /// </summary>
-        /// <param name="properties">: The properties of the window to be created.</param>
-        /// <returns>A pointer to the newly created Window object.</returns>
-        static Window* Create(const WindowProperties& properties = WindowProperties());
-
 	private:
-		struct WindowData
-		{
-			std::string Title;
-			unsigned int Width, Height;
-			bool VSync;
-			EventCallbackFn EventCallback;
-		};
-
 		WindowData m_Data;
 		GLFWwindow* m_Window;
 	};

@@ -6,6 +6,12 @@ project "GLAD"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
+	-----------INCLUDE DIRECTORIES-----------
+	includedirs 
+	{ 
+		"src" 
+	}
+
 	-----------COMPILE FILES-----------
 	files
 	{

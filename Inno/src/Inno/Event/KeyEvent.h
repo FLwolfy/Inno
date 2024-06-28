@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Event.h"
-#include "Inno/Core/Keycode.h"
 
 namespace Inno
 {
@@ -15,6 +14,7 @@ namespace Inno
 	protected:
 		unsigned int m_Keycode;
 
+	protected:
 		KeyEvent(unsigned int keycode)
 			: m_Keycode(keycode) {}
 	};

@@ -11,7 +11,10 @@ The output APIs.should only be used by client applications, should not be used b
 #include "Inno/Core/Log.h"
 
 // ---------------Layer System--------------- //
-#include "Inno/ImGui/ImGuiLayer.h"
+#include "Inno/Layer/ImGuiLayer.h"
+
+// ---------------Log System--------------- //
+#include "Inno/Input/Input.h"
 
 // ---------------Entry Point--------------- //
 #include "Inno/Core/EntryPoint.h"

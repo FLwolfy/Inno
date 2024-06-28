@@ -3,9 +3,9 @@
 
 #include "Inno/Core/Log.h"
 #include "Inno/Core/Core.h"
-#include "Inno/Events/ApplicationEvent.h"
-#include "Inno/Events/KeyEvent.h"
-#include "Inno/Events/MouseEvent.h"
+#include "Inno/Event/ApplicationEvent.h"
+#include "Inno/Event/KeyEvent.h"
+#include "Inno/Event/MouseEvent.h"
 
 #include <glad/glad.h>
 

@@ -3,6 +3,7 @@
 
 #include "Inno/Core/Core.h"
 #include "Inno/Core/Log.h"
+#include "Inno/Input/Input.h"
 
 namespace Inno
 {
@@ -35,7 +36,8 @@ namespace Inno
 	{
 		event.Dispatch<WindowCloseEvent>(BIND_FUNC(Application::OnWindowClose, this));
 
-		INNO_CORE_LOGTRACE(event);
+		// DEBUG: LOG EVENT DETAILS
+		// INNO_CORE_LOGTRACE(event);
 
 		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
 		{

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Inno/Core/Layer.h"
-#include "Inno/Events/ApplicationEvent.h"
-#include "Inno/Events/MouseEvent.h"
-#include "Inno/Events/KeyEvent.h"
+#include "Inno/Layer/Layer.h"
+#include "Inno/Event/ApplicationEvent.h"
+#include "Inno/Event/MouseEvent.h"
+#include "Inno/Event/KeyEvent.h"
 
 namespace Inno
 {
@@ -39,6 +39,7 @@ namespace Inno
 	private:
 		float m_Time = 0.0f;
 
+    private:
 		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& event);
 		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& event);
 		bool OnMouseMovedEvent(MouseMovedEvent& event);
