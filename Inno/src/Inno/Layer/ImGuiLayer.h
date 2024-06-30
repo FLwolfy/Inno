@@ -26,28 +26,17 @@ namespace Inno
         virtual void OnDetach() override;
 
         /// <summary>
-        /// Called once per frame to update ImGui, typically called before rendering.
+        /// Begins the Imgui Window Rendering.
         /// </summary>
-        virtual void OnUpdate() override;
+        void Begin();
 
         /// <summary>
-        /// Handles ImGui events, such as mouse clicks and keyboard input.
+        /// Ends the Imgui Window Rendering.
         /// </summary>
-        /// <param name="event">The event to handle.</param>
-        virtual void OnEvent(Event& event) override;
+        void End();
 
 	private:
 		float m_Time = 0.0f;
-
-    private:
-		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& event);
-		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& event);
-		bool OnMouseMovedEvent(MouseMovedEvent& event);
-		bool OnMouseScrolledEvent(MouseScrolledEvent& event);
-		bool OnKeyPressedEvent(KeyPressedEvent& event);
-		bool OnKeyReleasedEvent(KeyReleasedEvent& event);
-		bool OnKeyTypedEvent(KeyTypedEvent& event);
-		bool OnWindowResizeEvent(WindowResizeEvent& event);
 	};
 }
 

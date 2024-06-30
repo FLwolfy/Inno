@@ -4,6 +4,6 @@
 [submodule "Dependencies/spdlog/src"]
 	path = Dependencies/spdlog/src
 	url = https://github.com/gabime/spdlog
-[submodule "Dependencies/imgui/src"]
-	path = Dependencies/imgui/src
-	url = https://github.com/ocornut/imgui/tree/docking
+[submodule "Dependencies/glm/src"]
+	path = Dependencies/glm/src
+	url = https://github.com/g-truc/glm

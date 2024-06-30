@@ -10,6 +10,7 @@ IncludeLuas["imgui"] = "Dependencies/imgui"
 IncludeDirs["spdlog"] = "%{wks.location}/Dependencies/spdlog/src/include"
 IncludeDirs["glfw"] = "%{wks.location}/Dependencies/glfw/src/include"
 IncludeDirs["glad"] = "%{wks.location}/Dependencies/glad/src/include"
+IncludeDirs["glm"] = "%{wks.location}/Dependencies/glm/src"
 IncludeDirs["imgui"] = "%{wks.location}/Dependencies/imgui/src"
 
 IncludeProjs["glfw"] = "GLFW"
