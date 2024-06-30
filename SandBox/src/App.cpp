@@ -6,7 +6,6 @@ class App : public Inno::Application
 public:
 	App()
 	{
-		PushOverlay(new Inno::ImGuiLayer());
 	}
 
 	~App() {}

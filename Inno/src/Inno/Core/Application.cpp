@@ -5,6 +5,8 @@
 #include "Inno/Core/Log.h"
 #include "Inno/Input/Input.h"
 
+#include <Glad/glad.h>
+
 namespace Inno
 {
 	Application* Application::s_Instance = nullptr;
@@ -16,6 +18,9 @@ namespace Inno
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_FUNC(Application::OnEvent, this));
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application() {}
@@ -54,11 +59,26 @@ namespace Inno
 	{
 		while (m_IsRunning)
 		{
+			// Clear Color Buffer
+			glClearColor(1, 0.5f, 0.5f, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnUpdate();
 			}
 
+			// Gui Rendering
+			m_ImGuiLayer->Begin();
+
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnGuiRender();
+			}
+
+			m_ImGuiLayer->End();
+
+			// Window Rendering
 			m_Window->OnUpdate();
 		}
 	}

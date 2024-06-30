@@ -3,6 +3,7 @@
 #include "Inno/Core/Window.h"
 #include "Inno/Layer/Layer.h"
 #include "Inno/Layer/LayerStack.h"
+#include "Inno/Layer/ImGuiLayer.h"
 #include "Inno/Event/ApplicationEvent.h"
 
 namespace Inno
@@ -52,6 +53,7 @@ namespace Inno
 		static Application* s_Instance;
 
 		std::unique_ptr<Window> m_Window;
+        ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
         bool m_IsRunning = true;
 

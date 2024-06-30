@@ -31,6 +31,11 @@ namespace Inno
 		virtual void OnUpdate() {}
 
 		/// <summary>
+		/// Called to handle the GUI events of this layer.
+		/// </summary>
+		virtual void OnGuiRender() {}
+
+		/// <summary>
 		/// Called when an event occurs.
 		/// </summary>
 		/// <param name="event">The event that occurred.</param>

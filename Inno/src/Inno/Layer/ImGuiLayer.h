@@ -20,10 +20,15 @@ namespace Inno
         virtual void OnAttach() override;
 
         /// <summary>
-        /// Called when the layer is detached from the application.
+        /// Called when the layer is detached from the layer stack.
         /// Cleans up ImGui resources.
         /// </summary>
         virtual void OnDetach() override;
+
+        /// <summary>
+        /// Called in between the Begin() and End() for rendering ImGui windows.
+        /// </summary>
+        virtual void OnGuiRender() override;
 
         /// <summary>
         /// Begins the Imgui Window Rendering.

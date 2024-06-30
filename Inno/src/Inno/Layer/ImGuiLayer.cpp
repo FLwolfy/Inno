@@ -85,4 +85,10 @@ namespace Inno
 			glfwMakeContextCurrent(backup_current_context);
 		}
 	}
+
+	void ImGuiLayer::OnGuiRender()
+	{
+		static bool show = true;
+		ImGui::ShowDemoWindow(&show);
+	}
 }
