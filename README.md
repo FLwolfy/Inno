@@ -1,12 +1,16 @@
-# Inno
-Personal Game Engine Development: Inno Game Engine
+# INNO
 
-# Tutorial Link
+Personal Game Engine Development: Inno Game Engine.
+
+# TUTORIALS
+
 **TheCherno**'s [Game Engine Series](https://thecherno.com/engine) Tutorial.
 
-# Features
+# FEATURES
 
-### 🛠️ Core
+These are the feature task lists that I am working on right now. Some new features may be added, while still some existing features may be removed. It all depends on my personal preference and skills.
+
+## 🛠️ Core
 
 - **Log System**
   - [x] Log System
@@ -34,6 +38,11 @@ Personal Game Engine Development: Inno Game Engine
       - [ ] Transform
       - [ ] Camera
       - [ ] Drawing
+  - [ ] Seene Play Mode
+
+- **Serialization**
+  - [ ] Serializable Object
+  - [ ] Editor Serialize Field
 
 - **Scripting**
   - [ ] Native Scripting
@@ -44,7 +53,8 @@ Personal Game Engine Development: Inno Game Engine
     - [ ] Scene Hierarchy Panel
     - [ ] Properties Panel
 
-- **Physics Simulation**
+- **Physics**
+  - [ ] Physics Simulation Mode
   - [ ] Colliders
 
 - **IO and Debugging**
@@ -52,7 +62,7 @@ Personal Game Engine Development: Inno Game Engine
   - [ ] Open/Save File
   - [ ] Gizmos
 
-### 🎨 Render
+## 🎨 Render
 
 - **Render API**
   - [ ] Render Context
