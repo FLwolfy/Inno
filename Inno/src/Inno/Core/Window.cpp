@@ -7,7 +7,7 @@
 #include "Inno/Event/KeyEvent.h"
 #include "Inno/Event/MouseEvent.h"
 
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Inno
 {
@@ -34,10 +34,8 @@ namespace Inno
 		}
 
 		m_Window = glfwCreateWindow((int)properties.Width, (int)properties.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-
-		int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		INNO_CORE_ASSERT(success, "Initializing GLAD failed!")
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
@@ -159,7 +157,7 @@ namespace Inno
 	void Window::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void Window::SetVSync(bool enabled)

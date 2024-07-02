@@ -2,8 +2,8 @@
 
 #include "pch.h"
 #include "Inno/Event/Event.h"
-
-#include <GLFW/glfw3.h>
+#include "Inno/Render/GraphicsContext.h"
+#include "GLFW/glfw3.h"
 
 namespace Inno
 {
@@ -107,6 +107,7 @@ namespace Inno
 	private:
 		WindowData m_Data;
 		GLFWwindow* m_Window;
+        GraphicsContext* m_Context;
 	};
 }
 
