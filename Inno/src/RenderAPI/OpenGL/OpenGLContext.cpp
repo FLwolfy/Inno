@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "OpenGLContext.h"
 
-#include "Platform/OpenGL/OpenGLContext.h"
+#include "RenderAPI/OpenGL/OpenGLContext.h"
 #include "Inno/Core/Core.h"
 
 #include <glad/glad.h>
@@ -19,6 +19,8 @@ namespace Inno {
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		INNO_CORE_ASSERT(status, "Failed to initialize Glad!");
+
+		// INNO_CORE_LOGINFO("OpenGL Renderer:\n    [Vendor]: {0}\n    [Renderer]: {1}\n    [Version]: {2}", glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_VERSION));
 	}
 
 	void OpenGLContext::SwapBuffers()

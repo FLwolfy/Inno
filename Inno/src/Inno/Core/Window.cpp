@@ -7,7 +7,7 @@
 #include "Inno/Event/KeyEvent.h"
 #include "Inno/Event/MouseEvent.h"
 
-#include "Platform/OpenGL/OpenGLContext.h"
+#include "RenderAPI/OpenGL/OpenGLContext.h"
 
 namespace Inno
 {
