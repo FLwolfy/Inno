@@ -19,8 +19,20 @@ namespace Inno
 		/// </summary>
 		virtual void Unbind() const override;
 
+		/// <summary>
+		/// Sets the buffer layout of this OpenGL vertex buffer.
+		/// </summary>
+		/// <param name="layout">The input buffer layout.</param>
+		virtual inline void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+		/// <summary>
+		/// Gets the buffer layout used of this OpenGL vertex buffer.
+		/// </summary>
+		/// <returns>The buffer layout currently used.</returns>
+		virtual inline const BufferLayout& GetLayout() const override { return m_Layout; }
+
 	private:
 		uint32_t m_RendererID;
+		BufferLayout m_Layout;
 	};
 
 	class OpenGLIndexBuffer : public IndexBuffer
