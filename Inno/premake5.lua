@@ -7,7 +7,7 @@ project "Inno"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "pch.h"
+	pchheader "src/pch.h"
 	pchsource "src/pch.cpp"
 
 	-----------INCLUDE DIRECTORIES-----------
