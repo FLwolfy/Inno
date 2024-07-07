@@ -4,60 +4,86 @@
 
 namespace Inno
 {
-	class OpenGLVertexBuffer : public VertexBuffer
-	{
-	public:
-		OpenGLVertexBuffer(float* vertices, uint32_t size);
-		~OpenGLVertexBuffer();
+    class OpenGLVertexBuffer : public VertexBuffer
+    {
+    public:
+        /**
+         * @brief Constructs a vertex buffer and initializes it with vertex data.
+         *
+         * @param vertices Pointer to the array of vertices.
+         * @param size Size of the vertex data in bytes.
+         */
+        OpenGLVertexBuffer(float* vertices, uint32_t size);
 
-		/// <summary>
-		/// Binds the vertex buffer for OpenGL rendering.
-		/// </summary>
-		virtual void Bind() const override;
-		/// <summary>
-		/// Unbinds the vertex buffer.
-		/// </summary>
-		virtual void Unbind() const override;
+        /**
+         * @brief Destroys the vertex buffer.
+         */
+        ~OpenGLVertexBuffer();
 
-		/// <summary>
-		/// Sets the buffer layout of this OpenGL vertex buffer.
-		/// </summary>
-		/// <param name="layout">The input buffer layout.</param>
-		virtual inline void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
-		/// <summary>
-		/// Gets the buffer layout used of this OpenGL vertex buffer.
-		/// </summary>
-		/// <returns>The buffer layout currently used.</returns>
-		virtual inline const BufferLayout& GetLayout() const override { return m_Layout; }
+        /**
+         * @brief Binds the vertex buffer for OpenGL rendering.
+         */
+        virtual void Bind() const override;
 
-	private:
-		uint32_t m_RendererID;
-		BufferLayout m_Layout;
-	};
+        /**
+         * @brief Unbinds the vertex buffer.
+         */
+        virtual void Unbind() const override;
 
-	class OpenGLIndexBuffer : public IndexBuffer
-	{
-	public:
-		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
-		~OpenGLIndexBuffer();
+        /**
+         * @brief Sets the buffer layout of this OpenGL vertex buffer.
+         *
+         * @param layout The input buffer layout.
+         */
+        virtual inline void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
 
-		/// <summary>
-		/// Binds the vertex buffer for OpenGL rendering.
-		/// </summary>
-		virtual void Bind() const override;
-		/// <summary>
-		/// Unbinds the vertex buffer.
-		/// </summary>
-		virtual void Unbind() const override;
-		/// <summary>
-		/// Gets the number of indices in this OpenGL index buffer.
-		/// </summary>
-		/// <returns> The number of indices.</returns>
-		virtual uint32_t GetCount() const override { return m_Count; }
+        /**
+         * @brief Gets the buffer layout used of this OpenGL vertex buffer.
+         *
+         * @returns The buffer layout currently used.
+         */
+        virtual inline const BufferLayout& GetLayout() const override { return m_Layout; }
 
-	private:
-		uint32_t m_RendererID;
-		uint32_t m_Count;
-	};
+    private:
+        uint32_t m_RendererID;
+        BufferLayout m_Layout;
+    };
+
+    class OpenGLIndexBuffer : public IndexBuffer
+    {
+    public:
+        /**
+         * @brief Constructs an index buffer and initializes it with indices.
+         *
+         * @param indices Pointer to the array of indices.
+         * @param count Count of the elements in the indices.
+         */
+        OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
+
+        /**
+         * @brief Destroys the index buffer.
+         */
+        ~OpenGLIndexBuffer();
+
+        /**
+         * @brief Binds the index buffer for OpenGL rendering.
+         */
+        virtual void Bind() const override;
+
+        /**
+         * @brief Unbinds the index buffer.
+         */
+        virtual void Unbind() const override;
+
+        /**
+         * @brief Gets the number of indices in this OpenGL index buffer.
+         *
+         * @returns The number of indices.
+         */
+        virtual uint32_t GetCount() const override { return m_Count; }
+
+    private:
+        uint32_t m_RendererID;
+        uint32_t m_Count;
+    };
 }
-

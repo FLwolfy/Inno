@@ -1,41 +1,50 @@
 #pragma once
 
-#include <pch.h>
+#include <pch.h> // Assuming pch.h is a precompiled header file
 
 #include "Inno/Layer/Layer.h"
 
 namespace Inno
 {
-	class LayerStack
-	{
-	public:
-		LayerStack() = default;
-		~LayerStack();
+    /**
+     * @brief Class representing a stack of layers.
+     */
+    class LayerStack
+    {
+    public:
+        /**
+         * @brief Default constructor for LayerStack.
+         */
+        LayerStack() = default;
 
-        /// <summary>
-        /// Pushes a layer onto the stack.
-        /// </summary>
-        /// <param name="layer">: Pointer to the layer to be pushed.</param>
+        /**
+         * @brief Destructor for LayerStack.
+         */
+        ~LayerStack();
+
+        /**
+         * @brief Pushes a layer onto the stack.
+         * @param layer Pointer to the layer to be pushed.
+         */
         void PushLayer(Layer* layer);
 
-        /// <summary>
-        /// Pushes an overlay onto the stack.
-        /// </summary>
-        /// <param name="overlay">: Pointer to the overlay to be pushed.</param>
+        /**
+         * @brief Pushes an overlay onto the stack.
+         * @param overlay Pointer to the overlay to be pushed.
+         */
         void PushOverlay(Layer* overlay);
 
-        /// <summary>
-        /// Pops a layer from the stack.
-        /// </summary>
-        /// <param name="layer">: Pointer to the layer to be popped.</param>
+        /**
+         * @brief Pops a layer from the stack.
+         * @param layer Pointer to the layer to be popped.
+         */
         void PopLayer(Layer* layer);
 
-        /// <summary>
-        /// Pops an overlay from the stack.
-        /// </summary>
-        /// <param name="overlay">: Pointer to the overlay to be popped.</param>
+        /**
+         * @brief Pops an overlay from the stack.
+         * @param overlay Pointer to the overlay to be popped.
+         */
         void PopOverlay(Layer* overlay);
-
 
         std::vector<Layer*>::iterator begin() { return m_Layers.begin(); }
         std::vector<Layer*>::iterator end() { return m_Layers.end(); }
@@ -46,9 +55,8 @@ namespace Inno
         std::vector<Layer*>::const_reverse_iterator rbegin() const { return m_Layers.rbegin(); }
         std::vector<Layer*>::const_reverse_iterator rend() const { return m_Layers.rend(); }
 
-	private:
-		std::vector<Layer*> m_Layers;
-		unsigned int m_LayerSplitIndex = 0;
-	};
+    private:
+        std::vector<Layer*> m_Layers;
+        unsigned int m_LayerSplitIndex = 0;
+    };
 }
-

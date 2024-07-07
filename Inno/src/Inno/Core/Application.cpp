@@ -5,7 +5,7 @@
 #include "Inno/Core/Log.h"
 #include "Inno/Input/Input.h"
 
-#include <Glad/glad.h>
+#include <glad/glad.h>
 
 namespace Inno
 {

@@ -36,17 +36,20 @@ project "SandBox"
 		{
 			"INNO_PLATFORM_WINDOWS"
 		}
-
-	filter "system:linux"
-		defines
-		{
-			"INNO_PLATFORM_LINUX",
-		}
 	
 	filter "system:macosx"
 		defines
 		{
-			"INNO_PLATFORM_MACOS",
+			"INNO_PLATFORM_MACOSX",
+		}
+
+		links
+		{
+			"OpenGL.framework",
+			"CoreFoundation.framework",
+			"IOKit.framework",
+			"Cocoa.framework",
+			"QuartzCore.framework"
 		}
 
 	-----------CONFIGURATIONS-----------

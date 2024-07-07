@@ -9,7 +9,8 @@ project "GLAD"
 	-----------INCLUDE DIRECTORIES-----------
 	includedirs 
 	{ 
-		"src" 
+		"src",
+		"src/include"
 	}
 
 	-----------COMPILE FILES-----------
@@ -19,14 +20,6 @@ project "GLAD"
 		"src/include/KHR/khrplatform.h",
 		"src/src/glad.c"
 	}
-
-	includedirs
-    {
-        "src/include"
-    }
-    
-    filter "system:windows"
-        systemversion "latest"
 
     filter "configurations:Debug"
         runtime "Debug"

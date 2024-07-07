@@ -42,8 +42,6 @@ project "GLFW"
 
 	-----------PLATFORMS-----------
 	filter "system:windows"
-		systemversion "latest"
-
 		files
 		{
 			"src/src/win32_init.c",
@@ -57,7 +55,6 @@ project "GLFW"
 			"src/src/win32_window.c",
 			"src/src/wgl_context.c",
 			"src/src/egl_context.c",
-			"src/src/osmesa_context.c"
 		}
 
 		defines 
@@ -65,6 +62,29 @@ project "GLFW"
 			"_GLFW_WIN32",
 			"_CRT_SECURE_NO_WARNINGS"
 		}
+	
+	filter "system:macosx"
+        files
+        {
+            "src/src/cocoa_init.m",
+            "src/src/cocoa_joystick.h",
+            "src/src/cocoa_joystick.m",
+            "src/src/cocoa_monitor.m",
+            "src/src/cocoa_platform.h",
+            "src/src/cocoa_time.c",
+			"src/src/cocoa_time.h",
+            "src/src/cocoa_window.m",
+			"src/src/posix_module.c",
+            "src/src/posix_thread.h",
+            "src/src/posix_thread.c",
+            "src/src/nsgl_context.m",
+        }
+
+        defines 
+        {
+            "_GLFW_COCOA",
+            "_CRT_SECURE_NO_WARNINGS"
+        }
 
 	-----------CONFIGURATIONS-----------
 	filter "configurations:Debug"

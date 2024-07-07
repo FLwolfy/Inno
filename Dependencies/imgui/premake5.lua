@@ -37,10 +37,6 @@ project "IMGUI"
 		"%{IncludeDirs.glfw}"
 	}
 
-	-----------PLATFORMS-----------
-	filter "system:windows"
-		systemversion "latest"
-
 	-----------CONFIGURATIONS-----------
 	filter "configurations:Debug"
 		runtime "Debug"

@@ -7,41 +7,50 @@
 
 namespace Inno
 {
-	class ImGuiLayer : public Layer
-	{
-	public:
-		ImGuiLayer();
-		~ImGuiLayer() = default;
-
-        /// <summary>
-        /// Called when the layer is attached to the application.
-        /// Initializes ImGui and sets up ImGui specific settings.
-        /// </summary>
+    /**
+     * @brief Layer for ImGui integration.
+     */
+    class ImGuiLayer : public Layer
+    {
+    public:
+        /**
+         * @brief Default constructor.
+         */
+        ImGuiLayer();
+        
+        /**
+         * @brief Default destructor.
+         */
+        ~ImGuiLayer() = default;
+        
+        /**
+         * @brief Called when the layer is attached to the application.
+         * Initializes ImGui and sets up ImGui specific settings.
+         */
         virtual void OnAttach() override;
-
-        /// <summary>
-        /// Called when the layer is detached from the layer stack.
-        /// Cleans up ImGui resources.
-        /// </summary>
+        
+        /**
+         * @brief Called when the layer is detached from the layer stack.
+         * Cleans up ImGui resources.
+         */
         virtual void OnDetach() override;
-
-        /// <summary>
-        /// Called in between the Begin() and End() for rendering ImGui windows.
-        /// </summary>
+        
+        /**
+         * @brief Called in between the Begin() and End() for rendering ImGui windows.
+         */
         virtual void OnGuiRender() override;
-
-        /// <summary>
-        /// Begins the Imgui Window Rendering.
-        /// </summary>
+        
+        /**
+         * @brief Begins the ImGui window rendering.
+         */
         void Begin();
-
-        /// <summary>
-        /// Ends the Imgui Window Rendering.
-        /// </summary>
+        
+        /**
+         * @brief Ends the ImGui window rendering.
+         */
         void End();
-
-	private:
-		float m_Time = 0.0f;
-	};
+        
+    private:
+        float m_Time = 0.0f;
+    };
 }
-

@@ -8,65 +8,63 @@
 
 namespace Inno
 {
-	class Application
-	{
-	public:
-		Application();
-		virtual ~Application();
+    class Application
+    {
+    public:
+        Application();
+        virtual ~Application();
 
-        /// <summary>
-        /// Returns the singleton instance of the application.
-        /// </summary>
-        /// <returns>Reference to the singleton Application instance.</returns>
+        /**
+         * @brief Returns the singleton instance of the application.
+         * @return Reference to the singleton Application instance.
+         */
         inline static Application& Get() { return *s_Instance; }
 
-        /// <summary>
-        /// Returns the window associated with the application.
-        /// </summary>
-        /// <returns>Reference to the application's window.</returns>
+        /**
+         * @brief Returns the window associated with the application.
+         * @return Reference to the application's window.
+         */
         inline Window& GetWindow() { return *m_Window; }
 
-        /// <summary>
-        /// Pushes a layer onto the application's layer stack.
-        /// </summary>
-        /// <param name="layer">: Pointer to the layer to be pushed.</param>
+        /**
+         * @brief Pushes a layer onto the application's layer stack.
+         * @param layer Pointer to the layer to be pushed.
+         */
         void PushLayer(Layer* layer);
 
-        /// <summary>
-        /// Pushes an overlay onto the application's layer stack.
-        /// </summary>
-        /// <param name="layer">: Pointer to the layer to be pushed.</param>
+        /**
+         * @brief Pushes an overlay onto the application's layer stack.
+         * @param layer Pointer to the layer to be pushed.
+         */
         void PushOverlay(Layer* layer);
 
-        /// <summary>
-        /// Handles an event by dispatching it to the relevant layers.
-        /// </summary>
-        /// <param name="event">: Reference to the event to be handled.</param>
+        /**
+         * @brief Handles an event by dispatching it to the relevant layers.
+         * @param event Reference to the event to be handled.
+         */
         void OnEvent(Event& event);
 
-        /// <summary>
-        /// Starts the main application loop.
-        /// </summary>
+        /**
+         * @brief Starts the main application loop.
+         */
         void Run();
 
-	private:
-		static Application* s_Instance;
+    private:
+        static Application* s_Instance;
 
-		std::unique_ptr<Window> m_Window;
+        std::unique_ptr<Window> m_Window;
         ImGuiLayer* m_ImGuiLayer;
-		LayerStack m_LayerStack;
+        LayerStack m_LayerStack;
         bool m_IsRunning = true;
 
     private:
-		bool OnWindowClose(WindowCloseEvent& event);
-	};
+        bool OnWindowClose(WindowCloseEvent& event);
+    };
 
-    /// <summary>
-    /// Defined in client.
-    /// Creates and returns a new application instance.
-    /// </summary>
-    /// <returns>Pointer to the newly created Application instance.</returns>
+    /**
+     * @brief Defined in client.
+     * Creates and returns a new application instance.
+     * @return Pointer to the newly created Application instance.
+     */
     Application* CreateApplication();
 }
-
-

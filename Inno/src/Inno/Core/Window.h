@@ -7,107 +7,110 @@
 
 namespace Inno
 {
-	/// <summary>
-	/// Structure holding window properties such as title, width, and height.
-	/// </summary>
-	struct WindowProperties
-	{
-	public:
-		std::string Title;          ///< The title of the window.
-		unsigned int Width;         ///< The width of the window.
-		unsigned int Height;        ///< The height of the window.
+    /**
+     * @brief Structure holding window properties such as title, width, and height.
+     */
+    struct WindowProperties
+    {
+    public:
+        std::string Title;          ///< The title of the window.
+        unsigned int Width;         ///< The width of the window.
+        unsigned int Height;        ///< The height of the window.
 
     public:
-		/// <summary>
-		/// Constructs window properties with specified title, width, and height.
-		/// </summary>
-		/// <param name="title">: The title of the window.</param>
-		/// <param name="width">: The width of the window.</param>
-		/// <param name="height">: The height of the window.</param>
-		WindowProperties(const std::string& title = "Inno Engine",
-			unsigned int width = 1600,
-			unsigned int height = 900)
-			: Title(title), Width(width), Height(height) {}
-	};
+        /**
+         * @brief Constructs window properties with specified title, width, and height.
+         * @param title The title of the window.
+         * @param width The width of the window.
+         * @param height The height of the window.
+         */
+        WindowProperties(const std::string& title = "Inno Engine",
+                         unsigned int width = 1600,
+                         unsigned int height = 900)
+            : Title(title), Width(width), Height(height) {}
+    };
 
-    /// <summary>
-    /// Window class using GLFW for window management.
-    /// </summary>
+    /**
+     * @brief Window class using GLFW for window management.
+     */
     class Window
     {
         using EventCallbackFn = std::function<void(Event&)>;   ///< Event callback function type.
 
+        /**
+         * @brief Internal data structure for storing window-specific data.
+         */
         struct WindowData
         {
-            std::string Title;
-            unsigned int Width, Height;
-            bool VSync;
-            EventCallbackFn EventCallback;
+            std::string Title;          ///< The title of the window.
+            unsigned int Width, Height;  ///< The width and height of the window.
+            bool VSync;                  ///< Flag indicating whether VSync is enabled.
+            EventCallbackFn EventCallback;  ///< Callback function for handling events.
         };
 
     public:
-        /// <summary>
-        /// Constructs a window with the specified properties.
-        /// </summary>
-        /// <param name="properties">: The properties of the window.</param>
+        /**
+         * @brief Constructs a window with the specified properties.
+         * @param properties The properties of the window.
+         */
         Window(const WindowProperties& properties);
-        /// <summary>
-        /// Virtual destructor for the window class.
-        /// </summary>
+
+        /**
+         * @brief Virtual destructor for the window class.
+         */
         ~Window();
 
-        /// <summary>
-        /// Creates a new window with the specified properties.
-        /// </summary>
-        /// <param name="properties">: The properties of the window to be created.</param>
-        /// <returns>A pointer to the newly created Window object.</returns>
+        /**
+         * @brief Creates a new window with the specified properties.
+         * @param properties The properties of the window to be created.
+         * @return A pointer to the newly created Window object.
+         */
         static Window* Create(const WindowProperties& properties = WindowProperties());
 
-        /// <summary>
-        /// Updates the window.
-        /// </summary>
+        /**
+         * @brief Updates the window.
+         */
         void OnUpdate();
 
-        /// <summary>
-        /// Sets whether vertical sync (VSync) is enabled.
-        /// </summary>
-        /// <param name="enabled">: True to enable VSync, false otherwise.</param>
+        /**
+         * @brief Sets whether vertical sync (VSync) is enabled.
+         * @param enabled True to enable VSync, false otherwise.
+         */
         void SetVSync(bool enabled);
 
-        /// <summary>
-        /// Checks if VSync is currently enabled.
-        /// </summary>
-        /// <returns>True if VSync is enabled, false otherwise.</returns>
+        /**
+         * @brief Checks if VSync is currently enabled.
+         * @return True if VSync is enabled, false otherwise.
+         */
         bool IsVSync() const;
 
-        /// <summary>
-        /// Retrieves the width of the window.
-        /// </summary>
-        /// <returns>The width of the window.</returns>
+        /**
+         * @brief Retrieves the width of the window.
+         * @return The width of the window.
+         */
         inline unsigned int GetWidth() const { return m_Data.Width; }
 
-        /// <summary>
-        /// Retrieves the height of the window.
-        /// </summary>
-        /// <returns>The height of the window.</returns>
+        /**
+         * @brief Retrieves the height of the window.
+         * @return The height of the window.
+         */
         inline unsigned int GetHeight() const { return m_Data.Height; }
 
-        /// <summary>
-        /// Gets the native GLFW window instance of the current window.
-        /// </summary>
-        /// <returns>The native GLFW window instance.</returns>
-        inline GLFWwindow* GetNativeWindow() const{ return m_Window; }
+        /**
+         * @brief Gets the native GLFW window instance of the current window.
+         * @return The native GLFW window instance.
+         */
+        inline GLFWwindow* GetNativeWindow() const { return m_Window; }
 
-        /// <summary>
-        /// Sets the event callback function for handling window events.
-        /// </summary>
-        /// <param name="callback">: The event callback function.</param>
+        /**
+         * @brief Sets the event callback function for handling window events.
+         * @param callback The event callback function.
+         */
         inline void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
 
-	private:
-		WindowData m_Data;
-		GLFWwindow* m_Window;
-        GraphicsContext* m_Context;
-	};
+    private:
+        WindowData m_Data;       ///< Window data structure.
+        GLFWwindow* m_Window;    ///< GLFW window handle.
+        GraphicsContext* m_Context;  ///< Graphics context for the window.
+    };
 }
-

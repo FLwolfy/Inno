@@ -21,7 +21,6 @@ namespace Inno
 	void ImGuiLayer::OnAttach()
 	{
 		// Setup Dear ImGui context
-		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 
 		// Setup Configurations

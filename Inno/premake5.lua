@@ -47,23 +47,15 @@ project "Inno"
 
 	-----------PLATFORMS-----------
 	filter "system:windows"
-		systemversion "latest"
-
 		defines
 		{
 			"INNO_PLATFORM_WINDOWS",
-		}
-
-	filter "system:linux"
-		defines
-		{
-			"INNO_PLATFORM_LINUX",
 		}
 	
 	filter "system:macosx"
 		defines
 		{
-			"INNO_PLATFORM_MACOS",
+			"INNO_PLATFORM_MACOSX",
 		}
 	
 	-----------CONFIGURATIONS-----------

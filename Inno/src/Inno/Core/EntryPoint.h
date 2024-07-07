@@ -1,7 +1,9 @@
 #pragma once
 
-#ifdef INNO_PLATFORM_WINDOWS
-
+/**
+ * @brief Declares an external function for creating an Application instance.
+ * @return Pointer to the newly created Application instance.
+ */
 extern Inno::Application* Inno::CreateApplication();
 
 int main(int argc, char** argv)
@@ -14,6 +16,4 @@ int main(int argc, char** argv)
 	app->Run();
 	delete app;
 }
-
-#endif
 

@@ -2,7 +2,6 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 include "Dependencies/dependencies.lua"
 
 workspace "Inno"
-	architecture "x64"
 	startproject "SandBox"
 
 	configurations
@@ -17,17 +16,35 @@ workspace "Inno"
 		"MultiProcessorCompile"
 	}
 
-group "Dependencies"
-	for _, lua in pairs(IncludeLuas) do
-		include(lua)
-	end
+	-----------PLATFORMS-----------
+	filter "system:windows"
+		systemversion "latest"
+		architecture "x64"
 
-group ""
+	filter "system:macosx"
+		architecture "arm64"
 
-group "Core"
-	include "Inno"
-group ""
+		xcodebuildsettings 
+		{
+            ["HEADER_SEARCH_PATHS"] = 
+			{
+				"$(inherited)",
+				"$(USER_HEADER_SEARCH_PATHS)"
+			}
+        }
 
-group "Misc"
-	include "SandBox"
-group ""
+	-----------PROJECT GROUPS-----------
+	group "Dependencies"
+		for _, lua in pairs(IncludeLuas) do
+			include(lua)
+		end
+
+	group ""
+
+	group "Core"
+		include "Inno"
+	group ""
+
+	group "Misc"
+		include "SandBox"
+	group ""

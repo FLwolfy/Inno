@@ -4,58 +4,69 @@
 
 namespace Inno
 {
-	class Layer
-	{
-	public:
-		/// <summary>
-		/// Constructs a Layer with the given name.
-		/// </summary>
-		/// <param name="name">The name of the layer. Default is "Layer".</param>
-		Layer(const std::string& name = "Layer")
-			: m_Name(name) {}
-		virtual ~Layer() = default;
+    /**
+     * @brief Base class for application layers.
+     */
+    class Layer
+    {
+    public:
+        /**
+         * @brief Constructs a Layer with the given name.
+         * @param name The name of the layer. Default is "Layer".
+         */
+        Layer(const std::string& name = "Layer")
+            : m_Name(name) {}
 
-		/// <summary>
-		/// Called when the layer is attached.
-		/// </summary>
-		virtual void OnAttach() {}
+        /**
+         * @brief Virtual destructor for Layer.
+         */
+        virtual ~Layer() = default;
 
-		/// <summary>
-		/// Called when the layer is detached.
-		/// </summary>
-		virtual void OnDetach() {}
+        /**
+         * @brief Called when the layer is attached.
+         */
+        virtual void OnAttach() {}
 
-		/// <summary>
-		/// Called every frame to update the layer.
-		/// </summary>
-		virtual void OnUpdate() {}
+        /**
+         * @brief Called when the layer is detached.
+         */
+        virtual void OnDetach() {}
 
-		/// <summary>
-		/// Called to handle the GUI events of this layer.
-		/// </summary>
-		virtual void OnGuiRender() {}
+        /**
+         * @brief Called every frame to update the layer.
+         */
+        virtual void OnUpdate() {}
 
-		/// <summary>
-		/// Called when an event occurs.
-		/// </summary>
-		/// <param name="event">The event that occurred.</param>
-		virtual void OnEvent(Event& event) {}
+        /**
+         * @brief Called to handle the GUI events of this layer.
+         */
+        virtual void OnGuiRender() {}
 
-		/// <summary>
-		/// Returns the name of the layer.
-		/// </summary>
-		/// <returns>The name of the layer.</returns>
-		const std::string& GetName() const { return m_Name; }
+        /**
+         * @brief Called when an event occurs.
+         * @param event The event that occurred.
+         */
+        virtual void OnEvent(Event& event) {}
 
-		operator std::string() const
-		{
-			return GetName();
-		}
+        /**
+         * @brief Returns the name of the layer.
+         * @returns The name of the layer.
+         */
+        const std::string& GetName() const { return m_Name; }
 
-	protected:
-		/// <summary>
-		/// The name of the layer.
-		/// </summary>
-		std::string m_Name;
-	};
+        /**
+         * @brief Conversion operator to convert the layer to its name.
+         * @returns The name of the layer.
+         */
+        operator std::string() const
+        {
+            return GetName();
+        }
+
+    protected:
+        /**
+         * @brief The name of the layer.
+         */
+        std::string m_Name;
+    };
 }

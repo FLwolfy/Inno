@@ -6,29 +6,31 @@
 
 namespace Inno
 {
-	class OpenGLShader : public Shader
-	{
-	public:
-		/// <summary>
-		/// Constructs an OpenGLShader with the specified name, vertex source, and fragment source.
-		/// </summary>
-		/// <param name="name">The name of the shader.</param>
-		/// <param name="vertexSrc">The vertex shader source code.</param>
-		/// <param name="fragmentSrc">The fragment shader source code.</param>
-		OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
-		~OpenGLShader();
+    class OpenGLShader : public Shader
+    {
+    public:
+        /**
+         * @brief Constructs an OpenGLShader with the specified name, vertex source, and fragment source.
+         * @param name The name of the shader.
+         * @param vertexSrc The vertex shader source code.
+         * @param fragmentSrc The fragment shader source code.
+         */
+        OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
 
-		/// <summary>
-		/// Binds the shader for use in rendering.
-		/// </summary>
-		virtual void Bind() const override;
-		/// <summary>
-		/// Unbinds the shader. Mostly for debug use.
-		/// </summary>
-		virtual void Unbind() const override;
+        ~OpenGLShader();
 
-	private:
-		uint32_t m_RendererID;
-	};
+        /**
+         * @brief Binds the shader for use in rendering.
+         */
+        virtual void Bind() const override;
+
+        /**
+         * @brief Unbinds the shader. Mostly for debug use.
+         */
+        virtual void Unbind() const override;
+
+    private:
+        uint32_t m_RendererID;
+    };
+
 }
-

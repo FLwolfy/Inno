@@ -1,8 +1,7 @@
 #pragma once
 
-/*
-The output APIs.should only be used by client applications, should not be used by "Inno" directories
-*/
+/* The output APIs.should only be used by client applications, should not be used by "Inno" directories */
+
 
 // ---------------Application--------------- //
 #include "Inno/Core/Application.h"

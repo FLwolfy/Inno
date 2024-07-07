@@ -5,29 +5,31 @@
 
 namespace Inno {
 
-	/// <summary>
-	/// OpenGL-specific implementation of the GraphicsContext.
-	/// Manages the OpenGL rendering context and buffer swapping.
-	/// </summary>
-	class OpenGLContext : public GraphicsContext
-	{
-	public:
-		/// <summary>
-		/// Constructs an OpenGLContext with a specified GLFW window handle.
-		/// </summary>
-		/// <param name="windowHandle">The handle to the GLFW window.</param>
-		OpenGLContext(GLFWwindow* windowHandle);
+    /**
+     * @brief OpenGL-specific implementation of the GraphicsContext.
+     *        Manages the OpenGL rendering context and buffer swapping.
+     */
+    class OpenGLContext : public GraphicsContext
+    {
+    public:
+        /**
+         * @brief Constructs an OpenGLContext with a specified GLFW window handle.
+         * @param windowHandle The handle to the GLFW window.
+         */
+        OpenGLContext(GLFWwindow* windowHandle);
 
-		/// <summary>
-		/// Initializes the OpenGL context and sets up the necessary OpenGL state and configurations.
-		/// </summary>
-		virtual void Init() override;
-		/// <summary>
-		/// Swaps the front and back buffers of the OpenGL context. Presents the rendered frame to the screen.
-		/// </summary>
-		virtual void SwapBuffers() override;
-	private:
-		GLFWwindow* m_WindowHandle;
-	};
+        /**
+         * @brief Initializes the OpenGL context and sets up the necessary OpenGL state and configurations.
+         */
+        virtual void Init() override;
+
+        /**
+         * @brief Swaps the front and back buffers of the OpenGL context. Presents the rendered frame to the screen.
+         */
+        virtual void SwapBuffers() override;
+
+    private:
+        GLFWwindow* m_WindowHandle;
+    };
+
 }
-

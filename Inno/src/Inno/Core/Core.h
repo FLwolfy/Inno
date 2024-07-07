@@ -1,61 +1,74 @@
 #pragma once
 
-// ---------------Platforms--------------- //
-#ifdef INNO_PLATFORM_WINDOWS
-	// Windows API
-#elif INNO_PLATFORM_LINUX
-	// Linux API
-#elif INNO_PLATFORM_MACOS
-	// Mac API
-#else
-	// Inno Not Supported
-#endif
+#include "Inno/Core/Log.h"
 
+// -------------------------------------------------- //
 // ---------------Macros Const Defines--------------- //
+// -------------------------------------------------- //
+
+
+// --------------- Assertions --------------- //
 #ifdef INNO_DEBUG
-	#include "Inno/Core/Log.h"
+    #if INNO_PLATFORM_WINDOWS
+        /**
+         * @brief Asserts the given condition in debug mode. If the condition is false, logs an error message and triggers a debug break.
+         * @param x The condition to be asserted.
+         * @param ... The error message format.
+         */
+        #define INNO_ASSERT(x, ...) { if (!(x)) { INNO_LOGERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
 
-    /// <summary>
-    /// Asserts the given condition in debug mode. If the condition is false, logs an error message and triggers a debug break.
-    /// </summary>
-    /// <param name="x">: The condition to be asserted.</param>
-    /// <param name="...">: The error message format.</param>
-    #define INNO_ASSERT(x, ...) { if (!(x)) { INNO_LOGERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
+        /**
+         * @brief Asserts the given core condition in debug mode. If the condition is false, logs an error message and triggers a debug break.
+         * @param x The condition to be asserted.
+         * @param ... The error message format.
+         */
+        #define INNO_CORE_ASSERT(x, ...) { if (!(x)) { INNO_CORE_LOGERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
 
-    /// <summary>
-    /// Asserts the given core condition in debug mode. If the condition is false, logs an error message and triggers a debug break.
-    /// </summary>
-    /// <param name="x">: The condition to be asserted.</param>
-    /// <param name="...">: The error message format.</param>
-    #define INNO_CORE_ASSERT(x, ...) { if (!(x)) { INNO_CORE_LOGERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
+    #elif INNO_PLATFORM_MACOSX
+        /**
+         * @brief Asserts the given condition in debug mode. If the condition is false, logs an error message and triggers a debug break.
+         * @param x The condition to be asserted.
+         * @param ... The error message format.
+         */
+        #define INNO_ASSERT(x, ...) { if (!(x)) { INNO_LOGERROR("Assertion Failed: {0}", __VA_ARGS__); __builtin_debugtrap();}}
+
+        /**
+         * @brief Asserts the given core condition in debug mode. If the condition is false, logs an error message and triggers a debug break.
+         * @param x The condition to be asserted.
+         * @param ... The error message format.
+         */
+        #define INNO_CORE_ASSERT(x, ...) { if (!(x)) { INNO_CORE_LOGERROR("Assertion Failed: {0}", __VA_ARGS__); __builtin_debugtrap();}}
+    #endif
+    
 #else
-    /// <summary>
-    /// Asserts the given condition in release mode. In release mode, this macro does nothing.
-    /// </summary>
-    /// <param name="x">: The condition to be asserted.</param>
-    /// <param name="...">: The error message format (unused in release mode).</param>
+    /**
+     * @brief Asserts the given condition in release mode. In release mode, this macro does nothing.
+     * @param x The condition to be asserted.
+     * @param ... The error message format (unused in release mode).
+     */
     #define INNO_ASSERT(x, ...)
 
-    /// <summary>
-    /// Asserts the given core condition in release mode. In release mode, this macro does nothing.
-    /// </summary>
-    /// <param name="x">: The condition to be asserted.</param>
-    /// <param name="...">: The error message format (unused in release mode).</param>
+    /**
+     * @brief Asserts the given core condition in release mode. In release mode, this macro does nothing.
+     * @param x The condition to be asserted.
+     * @param ... The error message format (unused in release mode).
+     */
     #define INNO_CORE_ASSERT(x, ...)
 #endif
 
-/// <summary>
-/// Binds a member function to a specific instance for use with std::function or similar constructs.
-/// </summary>
-/// <param name="func">: The member function to be bound.</param>
-/// <param name="instance">: The instance of the class on which the member function will be called.</param>
-/// <returns>A std::function object that can be called with the specified function and instance.</returns>
+// --------------- Function Binds --------------- //
+/**
+ * @brief Binds a member function to a specific instance for use with std::function or similar constructs.
+ * @param func The member function to be bound.
+ * @param instance The instance of the class on which the member function will be called.
+ * @return A std::function object that can be called with the specified function and instance.
+ */
 #define BIND_FUNC(func, instance) std::bind(&func, instance, std::placeholders::_1)
 
-/// <summary>
-/// Encapsulates template definition with a base type constraint.
-/// </summary>
-/// <param name="T">: The generate type template.</param>
-/// <param name="base">: The base type T should inherit from.</param>
+// --------------- Generics --------------- //
+/**
+ * @brief Encapsulates template definition with a base type constraint.
+ * @param T The generate type template.
+ * @param base The base type T should inherit from.
+ */
 #define GENERIC_TYPE(T, base) template<typename T, typename = std::enable_if_t<std::is_base_of<base, T>::value>>
-
