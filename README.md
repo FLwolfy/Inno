@@ -69,8 +69,8 @@ These are the feature task lists that I am working on right now. Some new featur
     - [x] OpenGL
     - [ ] Vulcan
   - [ ] Frame Buffer
-  - [ ] Vertex Buffer
-  - [ ] Index Buffer
+  - [x] Vertex Buffer
+  - [x] Index Buffer
   - [ ] Texture
     - [ ] Texture System
     - [ ] Subtexture System (Sprites)
