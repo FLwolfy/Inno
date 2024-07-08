@@ -6,6 +6,7 @@ namespace Inno
 {
     class OpenGLVertexBuffer : public VertexBuffer
     {
+        friend class OpenGLVertexArray;
     public:
         /**
          * @brief Constructs a vertex buffer and initializes it with vertex data.
@@ -35,7 +36,16 @@ namespace Inno
          *
          * @param layout The input buffer layout.
          */
-        virtual inline void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+        virtual inline void SetLayout(const BufferLayout& layout) override
+        {
+            if (!isSetLayoutLocked)
+            {
+                INNO_CORE_ASSERT(false, "Cannot change the buffer layout of a vertex buffer binded to a vertex array!");
+                return;
+            }
+            
+            m_Layout = layout; 
+        }
 
         /**
          * @brief Gets the buffer layout used of this OpenGL vertex buffer.
@@ -47,6 +57,7 @@ namespace Inno
     private:
         uint32_t m_RendererID;
         BufferLayout m_Layout;
+        bool isSetLayoutLocked = false;
     };
 
     class OpenGLIndexBuffer : public IndexBuffer

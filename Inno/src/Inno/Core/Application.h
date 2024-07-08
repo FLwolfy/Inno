@@ -66,5 +66,5 @@ namespace Inno
      * Creates and returns a new application instance.
      * @return Pointer to the newly created Application instance.
      */
-    Application* CreateApplication();
+    std::shared_ptr<Application> CreateApplication();
 }

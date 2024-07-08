@@ -29,16 +29,28 @@ namespace Inno
         /**
          * @brief Adds an index buffer to the vertex array.
          *
-         * @param IndexBuffer The index buffer to add.
+         * @param indexBuffer The index buffer to add.
          */
-        virtual void AddIndexBuffer(const std::shared_ptr<IndexBuffer>& IndexBuffer) = 0;
+        virtual void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) = 0;
+
+        /**
+         * @brief Gets the vertex buffer list of the vertex array.
+         *
+         */
+        virtual const std::vector<std::shared_ptr<VertexBuffer>> GetVertexBuffers() const = 0;
+
+        /**
+         * @brief Gets the index buffer of the vertex array.
+         *
+         */
+        virtual const std::shared_ptr<IndexBuffer> GetIndexBuffer() const = 0;
 
         /**
          * @brief Creates a vertex array based on the current graphics API.
          *
-         * @returns A pointer to the created VertexArray instance.
+         * @returns A shared pointer to the created VertexArray instance.
          */
-        static VertexArray* Create();
+        static std::shared_ptr<VertexArray> Create();
     };
 
 } 

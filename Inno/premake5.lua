@@ -44,19 +44,6 @@ project "Inno"
 	for _, proj in pairs(IncludeProjs) do
 		links { proj }
 	end
-
-	-----------PLATFORMS-----------
-	filter "system:windows"
-		defines
-		{
-			"INNO_PLATFORM_WINDOWS",
-		}
-	
-	filter "system:macosx"
-		defines
-		{
-			"INNO_PLATFORM_MACOSX",
-		}
 	
 	-----------CONFIGURATIONS-----------
 	filter "configurations:Debug"

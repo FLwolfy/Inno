@@ -29,20 +29,7 @@ project "SandBox"
 	}
 
 	-----------PLATFORMS-----------
-	filter "system:windows"
-		systemversion "latest"
-
-		defines
-		{
-			"INNO_PLATFORM_WINDOWS"
-		}
-	
 	filter "system:macosx"
-		defines
-		{
-			"INNO_PLATFORM_MACOSX",
-		}
-
 		links
 		{
 			"OpenGL.framework",

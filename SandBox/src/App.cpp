@@ -11,10 +11,10 @@ public:
 	~App() {}
 };
 
-/*
-This is used for the transfering the app instance into the entry point.
-*/
-Inno::Application* Inno::CreateApplication()
+/**
+ * @brief This is used for the transfering the app instance into the entry point.
+ */
+std::shared_ptr<Inno::Application> Inno::CreateApplication()
 {
-	return new App();
+	return std::make_shared<App>();
 }

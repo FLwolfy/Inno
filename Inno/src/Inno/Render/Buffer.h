@@ -136,9 +136,9 @@ namespace Inno
          * @brief Creates a vertex buffer based on the current graphics API.
          * @param vertices Pointer to the array of vertices.
          * @param size Size of the vertex data in bytes.
-         * @returns A pointer to the created VertexBuffer instance.
+         * @returns A shared pointer to the created VertexBuffer instance.
          */
-        static VertexBuffer* Create(float* vertices, uint32_t size);
+        static std::shared_ptr<VertexBuffer> Create(float* vertices, uint32_t size);
     };
 
     /**
@@ -172,8 +172,8 @@ namespace Inno
          * @brief Creates an index/element buffer based on the current graphics API.
          * @param indices Pointer to the array of indices.
          * @param count Count of the elements in the indices.
-         * @returns A pointer to the created IndexBuffer instance.
+         * @returns A shared pointer to the created IndexBuffer instance.
          */
-        static IndexBuffer* Create(uint32_t* indices, uint32_t count);
+        static std::shared_ptr<IndexBuffer> Create(uint32_t* indices, uint32_t count);
     };
 }

@@ -13,7 +13,12 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Inno/Core/Core.h"
+#include "Inno/Core/Log.h"
+
 // ---------------Platform Relevant--------------- //
 #ifdef INNO_PLATFORM_WINDOWS
 	#include <Windows.h>
+#elif INNO_PLATFORM_MACOSX
+	#include <unistd.h>
 #endif
