@@ -8,7 +8,7 @@
 #ifdef _WIN32
     #ifdef _WIN64
         /* Windows x64  */
-        #define INNO_PLATFORM_WINDOWS
+        #define INNO_PLATFORM_WINDOWS 1
     #else
         /* Windows x86 */
         #error "x86 Builds are not supported!"
@@ -26,7 +26,7 @@
         #error "iOS is not supported!"
     #elif TARGET_OS_MAC == 1
         #ifdef __arm64__
-            #define INNO_PLATFORM_MACOSX
+            #define INNO_PLATFORM_MACOSX 1
         #else
             #error "Unsupported macOS architecture!"
         #endif
