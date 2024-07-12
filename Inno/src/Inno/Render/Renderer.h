@@ -1,27 +1,56 @@
 #pragma once
 
+#include "Inno/Render/RendererAPI.h"
+
 namespace Inno
 {
-    /* Enum representing different rendering APIs supported. */
-    enum class RendererAPI
-    {
-        None = 0,   ///< No rendering API
-        OpenGL = 1  ///< OpenGL rendering API
-    };
-
-    /* Renderer class responsible for managing the current rendering API.*/
     class Renderer
     {
     public:
+        class Command
+        {
+        public:
+            /**
+             * @brief Sets the clear color for rendering.
+             * @param color The color to set as the clear color.
+             */
+            static inline void SetClearColor(const glm::vec4& color) { s_RendererAPI->SetClearColor(color); }
+            /**
+             * @brief Clears the current rendering context.
+             */
+            static inline void Clear() { s_RendererAPI->Clear(); }
+            /**
+             * @brief Retrieves the current rendering API.
+             * @return The current rendering API.
+             */
+            static inline RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+            /**
+             * @brief Sets the current rendering API.
+             */
+            static void SetAPI(RendererAPI::API api);
+        };
+
+    public:
         /**
-         * @brief Retrieves the current rendering API in use.
-         *
-         * @returns The current rendering API.
+         * @brief Begins a new rendering scene with specified environment inputs.
+         *        Every submit in this renderer scene should be in between the BeginScene() and EndScene();
          */
-        inline static RendererAPI GetAPI() { return s_RendererAPI; }
+        static void BeginScene();
+        /**
+         * @brief Ends the current rendering scene.
+         *        Every submit in this renderer scene should be in between the BeginScene() and EndScene();
+         */
+        static void EndScene();
+        /**
+         * @brief Submits a vertex array for rendering with given shader.
+         *        Every submit in this renderer scene should be in between the BeginScene() and EndScene();
+         * @param vertexArray The vertex array to render.
+         * @param shader The given shader.
+         */
+        static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
 
     private:
-        static RendererAPI s_RendererAPI; ///< Currently active rendering API
+        static std::shared_ptr<RendererAPI> s_RendererAPI;
     };
 
 }

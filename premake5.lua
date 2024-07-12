@@ -7,8 +7,7 @@ workspace "Inno"
 	configurations
 	{
 		"Debug",
-		"Release",
-		"Dist"
+		"Release"
 	}
 
 	flags

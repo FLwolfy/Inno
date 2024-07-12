@@ -13,6 +13,7 @@ namespace Inno
 
 	Application::Application()
 	{
+		/* Singleton Application */
 		INNO_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 

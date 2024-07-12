@@ -45,6 +45,7 @@ namespace Inno
             case ShaderDataType::Int4:     return 4 * 4;
             case ShaderDataType::Mat3:     return 4 * 3 * 3;
             case ShaderDataType::Mat4:     return 4 * 4 * 4;
+
             default:
             {
                 INNO_CORE_ASSERT(false, "Unknown ShaderDataType");

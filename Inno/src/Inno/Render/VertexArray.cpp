@@ -9,15 +9,15 @@ namespace Inno
 {
 	std::shared_ptr<VertexArray> VertexArray::Create()
 	{
-		switch (Renderer::GetAPI())
+		switch (Renderer::Command::GetAPI())
 		{
-			case RendererAPI::None:
+			case RendererAPI::API::None:
 			{
 				// Temporary not support None API case
 				INNO_CORE_ASSERT(false, "RendererAPI::None current not supported!");
 				return nullptr;
 			}
-			case RendererAPI::OpenGL:
+			case RendererAPI::API::OpenGL:
 			{
 				return std::make_shared<OpenGLVertexArray>();
 			}

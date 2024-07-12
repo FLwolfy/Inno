@@ -7,7 +7,7 @@ project "Inno"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "src/pch.h"
+	pchheader "pch.h"
 	pchsource "src/pch.cpp"
 
 	-----------INCLUDE DIRECTORIES-----------
@@ -62,13 +62,4 @@ project "Inno"
 		defines
 		{
 			"INNO_RELEASE"
-		}
-
-	filter "configurations:Dist"
-		defines "INNO_DIST"
-		optimize "on"
-
-		defines
-		{
-			"INNO_DIST"
 		}
