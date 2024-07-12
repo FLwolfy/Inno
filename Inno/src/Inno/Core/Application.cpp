@@ -5,8 +5,6 @@
 #include "Inno/Core/Log.h"
 #include "Inno/Input/Input.h"
 
-#include <glad/glad.h>
-
 namespace Inno
 {
 	Application* Application::s_Instance = nullptr;
@@ -60,10 +58,7 @@ namespace Inno
 	{
 		while (m_IsRunning)
 		{
-			// Clear Color Buffer
-			glClearColor(0.2f, 0.2f, 0.2f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
-
+			// Layer Updating
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnUpdate();
@@ -79,7 +74,7 @@ namespace Inno
 
 			m_ImGuiLayer->End();
 
-			// Window Rendering
+			// Main Window Application Loop
 			m_Window->OnUpdate();
 		}
 	}

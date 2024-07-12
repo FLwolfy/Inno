@@ -15,7 +15,7 @@ namespace Inno
 			case RendererAPI::API::None:
 			{
 				// Temporary not support None API case
-				INNO_CORE_ASSERT(false, "RendererAPI::None current not supported!");
+				INNO_CORE_ASSERT(false, "RendererAPI::API::None current not supported!");
 				return nullptr;
 			}
 			case RendererAPI::API::OpenGL:

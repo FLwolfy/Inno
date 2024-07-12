@@ -26,7 +26,7 @@ namespace Inno
          * @param name Name of the buffer element.
          * @param normalized Whether the buffer element is normalized.
          */
-        BufferElement(const ShaderDataType type, std::string& name, bool normalized = false)
+        BufferElement(const ShaderDataType type, const std::string& name, bool normalized = false)
             : Name(name), Type(type), Size(GetShaderDataTypeSize(type)), Offset(0), Normalized(normalized) {}
 
         /**
@@ -45,11 +45,7 @@ namespace Inno
     class BufferLayout
     {
     public:
-        /**
-         * @brief Default constructor for BufferLayout.
-         */
         BufferLayout() = default;
-
         /**
          * @brief Constructor for BufferLayout.
          * @param elements List of buffer elements to initialize the layout.
@@ -78,8 +74,8 @@ namespace Inno
         std::vector<BufferElement>::const_iterator end() const { return m_BufferElements.end(); }
 
     private:
-        std::vector<BufferElement> m_BufferElements; ///< Vector holding buffer elements.
-        uint32_t m_Stride = 0; ///< Stride (size) of the buffer layout.
+        std::vector<BufferElement> m_BufferElements; /// Vector holding buffer elements.
+        uint32_t m_Stride = 0; /// Stride (size) of the buffer layout.
 
     private:
         /**

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Inno/Render/RendererAPI.h"
+#include "Inno/Render/Camera.h"
+#include "Inno/Render/Shader.h"
 
 namespace Inno
 {
@@ -35,7 +37,7 @@ namespace Inno
          * @brief Begins a new rendering scene with specified environment inputs.
          *        Every submit in this renderer scene should be in between the BeginScene() and EndScene();
          */
-        static void BeginScene();
+        static void BeginScene(Camera& camera);
         /**
          * @brief Ends the current rendering scene.
          *        Every submit in this renderer scene should be in between the BeginScene() and EndScene();
@@ -47,9 +49,16 @@ namespace Inno
          * @param vertexArray The vertex array to render.
          * @param shader The given shader.
          */
-        static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+        static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
 
     private:
+        struct SceneData
+        {
+            glm::mat4 ViewProjectionMatrix;
+        };
+
+    private:
+        static SceneData* s_SceneData;
         static std::shared_ptr<RendererAPI> s_RendererAPI;
     };
 

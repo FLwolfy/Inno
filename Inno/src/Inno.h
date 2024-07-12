@@ -3,19 +3,20 @@
 /* The output APIs.should only be used by client applications, should not be used by "Inno" directories */
 
 
-// ---------------Application--------------- //
+// --------------- Core --------------- //
 #include "Inno/Core/Application.h"
-
-// ---------------Log System--------------- //
 #include "Inno/Core/Log.h"
-
-// ---------------Layer System--------------- //
 #include "Inno/Layer/ImGuiLayer.h"
-
-// ---------------Log System--------------- //
 #include "Inno/Input/Input.h"
 
-// ---------------Entry Point--------------- //
+// --------------- Render --------------- //
+#include "Inno/Render/Renderer.h"
+#include "Inno/Render/Buffer.h"
+#include "Inno/Render/Shader.h"
+#include "Inno/Render/VertexArray.h"
+#include "Inno/Render/Camera.h"
+
+// --------------- Entry --------------- //
 #include "Inno/Core/EntryPoint.h"
 
 
