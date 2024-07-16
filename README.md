@@ -38,7 +38,7 @@ These are the feature task lists that I am working on right now. Some new featur
       - [ ] Transform
       - [ ] Camera
       - [ ] Drawing
-  - [ ] Seene Play Mode
+  - [ ] Scene Play Mode
 
 - **Serialization**
   - [ ] Serializable Object
