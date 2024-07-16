@@ -13,6 +13,9 @@ int main(int argc, char** argv)
 	INNO_LOGINFO("Welcome to Inno Engine!");
 
 	auto app = Inno::CreateApplication();
+	app->InitSettings();
+	app->InitWindow();
+	app->Start();
 	app->Run();
 	delete app;
 }

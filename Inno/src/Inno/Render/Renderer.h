@@ -23,7 +23,6 @@ namespace Inno
             static inline void Clear() { s_RendererAPI->Clear(); }
             /**
              * @brief Retrieves the current rendering API.
-             * @return The current rendering API.
              */
             static inline RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
             /**

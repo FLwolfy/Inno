@@ -12,7 +12,7 @@ namespace Inno
     {
     public:
         Application();
-        virtual ~Application();
+        virtual ~Application() = default;
 
         /**
          * @brief Returns the singleton instance of the application.
@@ -45,9 +45,24 @@ namespace Inno
         void OnEvent(Event& event);
 
         /**
-         * @brief Starts the main application loop.
+         * @brief Runs the main application loop.
          */
         void Run();
+
+        /**
+         * @brief Initializes the application window.
+         */
+        void InitWindow();
+
+        /**
+         * @brief Initiates the application settings at the very beginning right after the construtor.
+         */
+        virtual void InitSettings() = 0;
+
+        /**
+         * @brief Starts the application after the Initialization.
+         */
+        virtual void Start() = 0;
 
     private:
         static Application* s_Instance;

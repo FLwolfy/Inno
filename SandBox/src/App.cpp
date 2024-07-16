@@ -1,5 +1,4 @@
 #include <Inno.h>
-#include <Inno/Core/Log.h>
 
 class ExampleLayer : public Inno::Layer
 {
@@ -102,13 +101,16 @@ private:
 class App : public Inno::Application
 {
 public:
-	App()
+	virtual void InitSettings() override
 	{
+		Inno::GraphicsContext::Command::SetAPI(Inno::RendererAPI::API::OpenGL);
 		Inno::Renderer::Command::SetAPI(Inno::RendererAPI::API::OpenGL);
-		PushLayer(new ExampleLayer());
 	}
 
-	~App() {}
+	virtual void Start() override
+	{
+		PushLayer(new ExampleLayer());
+	}
 };
 
 /**

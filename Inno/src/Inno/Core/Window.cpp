@@ -31,13 +31,11 @@ namespace Inno
 		{
 			int success = glfwInit();
 			INNO_CORE_ASSERT(success, "Initializing GLFW failed!");
-            
-			glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 		}
 
 		GLFWwindow* glfwWindow = glfwCreateWindow((int)properties.Width, (int)properties.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		m_WindowHandle = glfwWindow;
-		m_Context = new OpenGLContext(glfwWindow);
+		m_Context = GraphicsContext::Create(m_WindowHandle);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(glfwWindow, &m_Data);
