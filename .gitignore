@@ -104,3 +104,6 @@ bin-int/
 
 # ImGui Generated
 */imgui.ini
+
+# Logs
+logs/

@@ -10,7 +10,7 @@ namespace Inno
 
 	bool Input::IsKeyPressedImpl(const Keycode keycode)
 	{
-		auto* window = Application::Get().GetWindow().GetNativeWindow();
+		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		int state = glfwGetKey(window, keycode);
 
 		return state == GLFW_PRESS || state == GLFW_REPEAT;

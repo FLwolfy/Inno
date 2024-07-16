@@ -38,7 +38,7 @@ namespace Inno
          */
         virtual inline void SetLayout(const BufferLayout& layout) override
         {
-            if (!isSetLayoutLocked)
+            if (isSetLayoutLocked)
             {
                 INNO_CORE_ASSERT(false, "Cannot change the buffer layout of a vertex buffer binded to a vertex array!");
                 return;

@@ -1,15 +1,11 @@
 #pragma once
-
 #include "pch.h"
+
 #include "Inno/Event/Event.h"
 #include "Inno/Render/GraphicsContext.h"
-#include "GLFW/glfw3.h"
 
 namespace Inno
 {
-    /**
-     * @brief Structure holding window properties such as title, width, and height.
-     */
     struct WindowProperties
     {
     public:
@@ -30,9 +26,6 @@ namespace Inno
             : Title(title), Width(width), Height(height) {}
     };
 
-    /**
-     * @brief Window class using GLFW for window management.
-     */
     class Window
     {
         using EventCallbackFn = std::function<void(Event&)>;   ///< Event callback function type.
@@ -49,15 +42,7 @@ namespace Inno
         };
 
     public:
-        /**
-         * @brief Constructs a window with the specified properties.
-         * @param properties The properties of the window.
-         */
         Window(const WindowProperties& properties);
-
-        /**
-         * @brief Virtual destructor for the window class.
-         */
         ~Window();
 
         /**
@@ -71,13 +56,11 @@ namespace Inno
          * @brief Updates the window.
          */
         void OnUpdate();
-
         /**
          * @brief Sets whether vertical sync (VSync) is enabled.
          * @param enabled True to enable VSync, false otherwise.
          */
         void SetVSync(bool enabled);
-
         /**
          * @brief Checks if VSync is currently enabled.
          * @return True if VSync is enabled, false otherwise.
@@ -89,18 +72,16 @@ namespace Inno
          * @return The width of the window.
          */
         inline unsigned int GetWidth() const { return m_Data.Width; }
-
         /**
          * @brief Retrieves the height of the window.
          * @return The height of the window.
          */
         inline unsigned int GetHeight() const { return m_Data.Height; }
-
         /**
          * @brief Gets the native GLFW window instance of the current window.
          * @return The native GLFW window instance.
          */
-        inline GLFWwindow* GetNativeWindow() const { return m_Window; }
+        inline void* GetNativeWindow() const { return m_WindowHandle; }
 
         /**
          * @brief Sets the event callback function for handling window events.
@@ -110,7 +91,7 @@ namespace Inno
 
     private:
         WindowData m_Data;       ///< Window data structure.
-        GLFWwindow* m_Window;    ///< GLFW window handle.
         GraphicsContext* m_Context;  ///< Graphics context for the window.
+        void* m_WindowHandle;    ///< Window handle.
     };
 }

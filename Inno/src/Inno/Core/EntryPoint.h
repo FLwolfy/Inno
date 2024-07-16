@@ -4,7 +4,7 @@
  * @brief Declares an external function for creating an Application instance.
  * @return Pointer to the newly created Application instance.
  */
-extern std::shared_ptr<Inno::Application> Inno::CreateApplication();
+extern Inno::Application* Inno::CreateApplication();
 
 int main(int argc, char** argv)
 {
@@ -14,5 +14,6 @@ int main(int argc, char** argv)
 
 	auto app = Inno::CreateApplication();
 	app->Run();
+	delete app;
 }
 

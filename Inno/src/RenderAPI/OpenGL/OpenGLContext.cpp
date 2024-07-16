@@ -19,6 +19,15 @@ namespace Inno {
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		INNO_CORE_ASSERT(status, "Failed to initialize Glad!");
+
+		INNO_CORE_LOGINFO("+-------------------------------------------------------------------------+");
+		INNO_CORE_LOGINFO("|                               OpenGL Info                               |");
+		INNO_CORE_LOGINFO("+-------------------------------------------------------------------------+");
+		INNO_CORE_LOGINFO("| Vendor   : {:<60} |", (const char*)glGetString(GL_VENDOR));
+		INNO_CORE_LOGINFO("| Renderer : {:<60} |", (const char*)glGetString(GL_RENDERER));
+		INNO_CORE_LOGINFO("| Version  : {:<60} |", (const char*)glGetString(GL_VERSION));
+		INNO_CORE_LOGINFO("+-------------------------------------------------------------------------+");
+
 		INNO_CORE_ASSERT(GLVersion.major > 4 || (GLVersion.major == 4 && GLVersion.minor >= 5), "Inno Engine requires OpenGL version >= 4.5!");
 	}
 

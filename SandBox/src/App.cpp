@@ -40,7 +40,7 @@ public:
 			uniform mat4 u_ViewProjection;
 			
 			out vec3 v_Position;
-			out vec3 v_Color;
+			out vec4 v_Color;
 
 			void main()
 			{
@@ -53,15 +53,14 @@ public:
 		std::string shaderFragmentSrc = R"(
 			#version 330 core
 
-			layout(location = 0) out vec4 o_color;
+			layout(location = 0) out vec4 o_Color;
 
 			in vec3 v_Position;
 			in vec4 v_Color;
 
 			void main()
 			{
-				color = vec4(v_Position * 0.5 + 0.5, 1.0);
-				color = v_Color
+				o_Color = v_Color;
 			}
 		)";
 
@@ -115,7 +114,7 @@ public:
 /**
  * @brief This is used for the transfering the app instance into the entry point.
  */
-std::shared_ptr<Inno::Application> Inno::CreateApplication()
+Inno::Application* Inno::CreateApplication()
 {
-	return std::make_shared<App>();
+	return new App();
 }

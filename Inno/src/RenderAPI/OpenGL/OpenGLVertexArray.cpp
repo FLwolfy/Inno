@@ -61,6 +61,8 @@ namespace Inno
 		const auto& layout = vertexBuffer->GetLayout();
 		for (const auto& element : layout)
 		{
+			#pragma warning(push)
+			#pragma warning(disable : 4312)
 			switch (element.Type)
 			{
 				case ShaderDataType::Float:
@@ -119,6 +121,7 @@ namespace Inno
 					INNO_CORE_ASSERT(false, "Unknown ShaderDataType!");
 				}
 			}
+			#pragma warning(pop)
 		}
 
 		m_VertexBuffers.push_back(vertexBuffer);

@@ -36,7 +36,7 @@ namespace Inno
     /**
      * @brief Base class for all events in the Inno engine.
      */
-    class Event
+    class Event : public ILoggable
     {
         GENERIC_TYPE(T, Event)
         using EventFunc = std::function<bool(T&)>;
@@ -53,24 +53,16 @@ namespace Inno
          * @return Type of the event as an EventType enum value.
          */
         virtual EventType GetEventType() const = 0;
-
         /**
          * @brief Retrieves the name of the event.
          * @return Name of the event as a C-string.
          */
         virtual const char* GetName() const = 0;
-
         /**
          * @brief Retrieves the category flags of the event.
          * @return Category flags of the event.
          */
         virtual int GetCategoryFlags() const = 0;
-
-        /**
-         * @brief Converts the event to a string representation (default implementation returns the name).
-         * @return String representation of the event.
-         */
-        virtual std::string ToString() const { return GetName(); }
 
         /**
          * @brief Checks if the event belongs to a specified category.
@@ -102,25 +94,11 @@ namespace Inno
         }
 
         /**
-         * @brief Converts the event to a string representation.
+         * @brief Converts the event to a string representation (default implementation returns the name).
          * @return String representation of the event.
          */
-        operator std::string() const
-        {
-            return ToString();
-        }
+        virtual std::string ToString() const override { return GetName(); }
     };
-
-    /**
-     * @brief Stream insertion operator for printing events to output streams.
-     * @param os Output stream.
-     * @param e Event to print.
-     * @return Reference to the output stream.
-     */
-    inline std::ostream& operator<<(std::ostream& os, const Event& e)
-    {
-        return os << e.ToString();
-    }
 
     /**
      * @brief Macro for defining the static type and getter methods for an event type.

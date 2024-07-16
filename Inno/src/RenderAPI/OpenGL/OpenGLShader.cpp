@@ -10,7 +10,7 @@
 namespace Inno
 {
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
-		: Shader(name)
+		: Shader(name), m_RendererID(0)
 	{
 		/* COPY FROM https://www.khronos.org/opengl/wiki/Shader_Compilation PAGE EXAMPLE SECTION*/
 
@@ -41,7 +41,7 @@ namespace Inno
 
 			// Use the infoLog as you see fit.
 			INNO_CORE_LOGERROR("Vertex Shader Complilation Failed!");
-			INNO_CORE_ASSERT(false, "{0}", infoLog.data());
+			INNO_CORE_ASSERT(false, (const char*)infoLog.data());
 
 			return;
 		}
@@ -74,7 +74,7 @@ namespace Inno
 
 			// Use the infoLog as you see fit.
 			INNO_CORE_LOGERROR("Fragment Shader Complilation Failed!");
-			INNO_CORE_ASSERT(false, "{0}", infoLog.data());
+			INNO_CORE_ASSERT(false, (const char*)infoLog.data());
 
 			return;
 		}
@@ -82,7 +82,7 @@ namespace Inno
 		// Vertex and fragment shaders are successfully compiled.
 		// Now time to link them together into a program.
 		// Get a program (renderer ID) object.
-		GLuint m_RendererID = glCreateProgram();;
+		m_RendererID = glCreateProgram();
 
 		// Attach our shaders to our program
 		glAttachShader(m_RendererID, vertexShader);

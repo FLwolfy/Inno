@@ -24,7 +24,7 @@ namespace Inno
 		m_Data.Width = properties.Width;
 		m_Data.Height = properties.Height;
 
-		INNO_CORE_LOGTRACE("Creating Window {0} ({1}, {2}) in Windows System", properties.Title, properties.Width, properties.Height);
+		INNO_CORE_LOGTRACE("Creating Window {0} ({1}, {2})", properties.Title, properties.Width, properties.Height);
 
 		// Initialize GLFW
 		if (s_GLFWWindowCount == 0)
@@ -32,20 +32,19 @@ namespace Inno
 			int success = glfwInit();
 			INNO_CORE_ASSERT(success, "Initializing GLFW failed!");
             
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+			glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 		}
 
-		m_Window = glfwCreateWindow((int)properties.Width, (int)properties.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		m_Context = new OpenGLContext(m_Window);
+		GLFWwindow* glfwWindow = glfwCreateWindow((int)properties.Width, (int)properties.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		m_WindowHandle = glfwWindow;
+		m_Context = new OpenGLContext(glfwWindow);
 		m_Context->Init();
 
-		glfwSetWindowUserPointer(m_Window, &m_Data);
+		glfwSetWindowUserPointer(glfwWindow, &m_Data);
 		SetVSync(true);
 
 		// Set GLFW Callbacks
-		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+		glfwSetWindowSizeCallback(glfwWindow, [](GLFWwindow* window, int width, int height)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 			data.Width = width;
@@ -55,7 +54,7 @@ namespace Inno
 			data.EventCallback(event);
 		});
 
-		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+		glfwSetWindowCloseCallback(glfwWindow, [](GLFWwindow* window)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -63,7 +62,7 @@ namespace Inno
 			data.EventCallback(event);
 		});
 
-		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		glfwSetKeyCallback(glfwWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -90,7 +89,7 @@ namespace Inno
 			}
 		});
 
-		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
+		glfwSetCharCallback(glfwWindow, [](GLFWwindow* window, unsigned int keycode)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -98,7 +97,7 @@ namespace Inno
 			data.EventCallback(event);
 		});
 
-		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+		glfwSetMouseButtonCallback(glfwWindow, [](GLFWwindow* window, int button, int action, int mods)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -119,7 +118,7 @@ namespace Inno
 			}
 		});
 
-		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
+		glfwSetScrollCallback(glfwWindow, [](GLFWwindow* window, double xOffset, double yOffset)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -127,7 +126,7 @@ namespace Inno
 			data.EventCallback(event);
 		});
 
-		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xPos, double yPos)
+		glfwSetCursorPosCallback(glfwWindow, [](GLFWwindow* window, double xPos, double yPos)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -149,7 +148,7 @@ namespace Inno
 
 	Window::~Window()
 	{
-		glfwDestroyWindow(m_Window);
+		glfwDestroyWindow((GLFWwindow*)m_WindowHandle);
 		s_GLFWWindowCount--;
 
 		if (s_GLFWWindowCount == 0)

@@ -41,7 +41,7 @@ namespace Inno
 		event.Dispatch<WindowCloseEvent>(BIND_FUNC(Application::OnWindowClose, this));
 
 		// DEBUG: LOG EVENT DETAILS
-		INNO_CORE_LOGTRACE(event);
+		// INNO_CORE_LOGTRACE(event);
 
 		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
 		{
