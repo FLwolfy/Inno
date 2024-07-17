@@ -10,7 +10,7 @@ namespace Inno
 
 	bool Input::IsKeyPressedImpl(const Keycode keycode)
 	{
-		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetWindowHandle());
 		int state = glfwGetKey(window, keycode);
 
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
@@ -18,14 +18,14 @@ namespace Inno
 
 	bool Input::IsMouseButtonPressedImpl(const Mousecode mousecode)
 	{
-		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetWindowHandle());
 		auto state = glfwGetMouseButton(window, static_cast<int32_t>(mousecode));
 		return state == GLFW_PRESS;
 	}
 
 	std::pair<float, float> Input::GetMousePositionImpl()
 	{
-		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetWindowHandle());
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
 

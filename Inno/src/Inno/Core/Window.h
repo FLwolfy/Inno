@@ -1,71 +1,83 @@
 #pragma once
-#include "pch.h"
 
 #include "Inno/Event/Event.h"
 #include "Inno/Render/GraphicsContext.h"
 
 namespace Inno
 {
-    struct WindowProperties
-    {
-    public:
-        std::string Title;          ///< The title of the window.
-        unsigned int Width;         ///< The width of the window.
-        unsigned int Height;        ///< The height of the window.
-
-    public:
-        /**
-         * @brief Constructs window properties with specified title, width, and height.
-         * @param title The title of the window.
-         * @param width The width of the window.
-         * @param height The height of the window.
-         */
-        WindowProperties(const std::string& title = "Inno Engine",
-                         unsigned int width = 1600,
-                         unsigned int height = 900)
-            : Title(title), Width(width), Height(height) {}
-    };
-
     class Window
     {
-        using EventCallbackFn = std::function<void(Event&)>;   ///< Event callback function type.
+    public:
+        using EventCallbackFn = std::function<void(Event&)>;   /// Event callback function type.
 
         /**
-         * @brief Internal data structure for storing window-specific data.
+         * @brief Enumeration of supported Window APIs.
+         */
+        enum class API
+        {
+            None = 0,   /// No specific rendering API selected.
+            OpenGL      /// OpenGL rendering API.
+        };
+
+        class Command
+        {
+        public:
+            /**
+             * @brief Retrieves the current Window API.
+             */
+            static inline API GetAPI() { return s_WindowAPI; }
+            /**
+             * @brief Sets the current Window API.
+             */
+            static inline void SetAPI(API api) { s_WindowAPI = api; }
+        };
+
+        /**
+         * @brief Internal structure for storing window properties.
+         */
+        struct WindowProperties
+        {
+        public:
+            std::string Title;          /// The title of the window.
+            unsigned int Width;         /// The width of the window.
+            unsigned int Height;        /// The height of the window.
+
+        public:
+            WindowProperties(const std::string& title = "Inno Engine",
+                unsigned int width = 1600,
+                unsigned int height = 900)
+                : Title(title), Width(width), Height(height) {}
+        };
+
+        /**
+         * @brief Internal structure for storing window-specific data.
          */
         struct WindowData
         {
-            std::string Title;          ///< The title of the window.
-            unsigned int Width, Height;  ///< The width and height of the window.
-            bool VSync;                  ///< Flag indicating whether VSync is enabled.
-            EventCallbackFn EventCallback;  ///< Callback function for handling events.
+        public:
+            std::string Title;                /// The title of the window.
+            unsigned int Width, Height;       /// The width and height of the window.
+            bool VSync;                       /// Flag indicating whether VSync is enabled.
+            EventCallbackFn EventCallback;    /// Callback function for handling events.
         };
 
     public:
         Window(const WindowProperties& properties);
-        ~Window();
-
-        /**
-         * @brief Creates a new window with the specified properties.
-         * @param properties The properties of the window to be created.
-         * @return A pointer to the newly created Window object.
-         */
-        static Window* Create(const WindowProperties& properties = WindowProperties());
 
         /**
          * @brief Updates the window.
          */
-        void OnUpdate();
+        virtual void OnUpdate() = 0;
         /**
          * @brief Sets whether vertical sync (VSync) is enabled.
          * @param enabled True to enable VSync, false otherwise.
          */
-        void SetVSync(bool enabled);
+        virtual void SetVSync(bool enabled) = 0;
         /**
          * @brief Checks if VSync is currently enabled.
          * @return True if VSync is enabled, false otherwise.
          */
-        bool IsVSync() const;
+        virtual bool IsVSync() const = 0;
 
         /**
          * @brief Retrieves the width of the window.
@@ -81,7 +93,7 @@ namespace Inno
          * @brief Gets the native GLFW window instance of the current window.
          * @return The native GLFW window instance.
          */
-        inline void* GetNativeWindow() const { return m_WindowHandle; }
+        inline void* GetWindowHandle() const { return m_WindowHandle; }
 
         /**
          * @brief Sets the event callback function for handling window events.
@@ -89,9 +101,18 @@ namespace Inno
          */
         inline void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
 
+        /**
+         * @brief Creates a new window with the specified properties according to the Window Render API.
+         * @return A pointer to the newly created Window object.
+         */
+        static std::unique_ptr<Window> Create(const WindowProperties& properties = WindowProperties());
+
+    protected:
+        WindowData m_Data;           /// Window data structure.
+        GraphicsContext* m_Context;  /// Graphics context for the window.
+        void* m_WindowHandle;        /// Window handle.
+
     private:
-        WindowData m_Data;       ///< Window data structure.
-        GraphicsContext* m_Context;  ///< Graphics context for the window.
-        void* m_WindowHandle;    ///< Window handle.
+        static API s_WindowAPI;
     };
 }

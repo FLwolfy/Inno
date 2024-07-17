@@ -19,7 +19,7 @@ namespace Inno
 
 	void Application::InitWindow()
 	{
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window = Window::Create();
 		m_Window->SetEventCallback(BIND_FUNC(Application::OnEvent, this));
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

@@ -45,8 +45,8 @@ namespace Inno
         /**
          * @brief Submits a vertex array for rendering with given shader.
          *        Every submit in this renderer scene should be in between the BeginScene() and EndScene();
-         * @param vertexArray The vertex array to render.
          * @param shader The given shader.
+         * @param vertexArray The vertex array to render.
          */
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
 

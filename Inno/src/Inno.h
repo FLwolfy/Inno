@@ -10,7 +10,7 @@
 #include "Inno/Input/Input.h"
 
 // --------------- Render --------------- //
-#include "Inno/Render/GraphicsContext.h"
+#include "Inno/Core/Window.h"
 #include "Inno/Render/Renderer.h"
 #include "Inno/Render/Buffer.h"
 #include "Inno/Render/Shader.h"

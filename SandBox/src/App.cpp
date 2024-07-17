@@ -103,7 +103,7 @@ class App : public Inno::Application
 public:
 	virtual void InitSettings() override
 	{
-		Inno::GraphicsContext::Command::SetAPI(Inno::RendererAPI::API::OpenGL);
+		Inno::Window::Command::SetAPI(Inno::Window::API::OpenGL);
 		Inno::Renderer::Command::SetAPI(Inno::RendererAPI::API::OpenGL);
 	}
 
