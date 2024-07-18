@@ -4,9 +4,10 @@
 
 
 // --------------- Core --------------- //
-#include "Inno/Core/Application.h"
+#include "Inno/Core/Core.h"
 #include "Inno/Core/Log.h"
 #include "Inno/Core/Timestep.h"
+#include "Inno/Core/Application.h"
 #include "Inno/Layer/ImGuiLayer.h"
 #include "Inno/Input/Input.h"
 

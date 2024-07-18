@@ -15,7 +15,7 @@ namespace Inno
 		 */
 		inline const glm::vec3& GetRotation() const { return m_Rotation; }
 		/**
-		 * @brief Sets the rotation of the camera.
+		 * @brief Sets the rotation of the camera (in degrees).
 		 * @param rotation The new rotation of the camera.
 		 */
 		inline void SetRotation(const glm::vec3 rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }

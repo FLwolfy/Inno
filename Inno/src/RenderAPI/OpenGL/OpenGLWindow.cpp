@@ -23,7 +23,7 @@ namespace Inno
 
 		GLFWwindow* glfwWindow = glfwCreateWindow((int)properties.Width, (int)properties.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		m_WindowHandle = glfwWindow;
-		m_Context = new OpenGLContext(glfwWindow);
+		m_Context = CreateUnq<OpenGLContext>(glfwWindow);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(glfwWindow, &m_Data);
@@ -135,7 +135,6 @@ namespace Inno
 	OpenGLWindow::~OpenGLWindow()
 	{
 		glfwDestroyWindow((GLFWwindow*)m_WindowHandle);
-		delete m_Context;
 		s_GLFWWindowCount--;
 
 		if (s_GLFWWindowCount == 0)

@@ -23,7 +23,7 @@ namespace Inno
 		return state == GLFW_PRESS;
 	}
 
-	std::pair<float, float> Input::GetMousePositionImpl()
+	glm::vec2 Input::GetMousePositionImpl()
 	{
 		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetWindowHandle());
 		double xpos, ypos;
@@ -34,13 +34,11 @@ namespace Inno
 
 	float Input::GetMouseXImpl()
 	{
-		auto [x, y] = GetMousePositionImpl();
-		return x;
+		return GetMousePositionImpl().x;
 	}
 
 	float Input::GetMouseYImpl()
 	{
-		auto [x, y] = GetMousePositionImpl();
-		return y;
+		return GetMousePositionImpl().y;
 	}
 }

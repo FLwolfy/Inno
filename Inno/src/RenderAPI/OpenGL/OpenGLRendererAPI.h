@@ -22,7 +22,7 @@ namespace Inno
          * @brief Draws indexed geometry using the provided vertex array.
          * @param vertexArray The vertex array containing geometry data.
          */
-        virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) override;
+        virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
 	};
 }
 

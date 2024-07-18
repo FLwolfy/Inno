@@ -67,7 +67,7 @@ namespace Inno
     private:
         static Application* s_Instance;
 
-        std::unique_ptr<Window> m_Window;
+        Unq<Window> m_Window;
         ImGuiLayer* m_ImGuiLayer;
         LayerStack m_LayerStack;
         bool m_IsRunning = true;

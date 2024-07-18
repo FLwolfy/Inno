@@ -134,7 +134,7 @@ namespace Inno
          * @param size Size of the vertex data in bytes.
          * @returns A shared pointer to the created VertexBuffer instance.
          */
-        static std::shared_ptr<VertexBuffer> Create(float* vertices, uint32_t size);
+        static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
     };
 
     /**
@@ -170,6 +170,6 @@ namespace Inno
          * @param count Count of the elements in the indices.
          * @returns A shared pointer to the created IndexBuffer instance.
          */
-        static std::shared_ptr<IndexBuffer> Create(uint32_t* indices, uint32_t count);
+        static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t count);
     };
 }

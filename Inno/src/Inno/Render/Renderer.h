@@ -47,8 +47,9 @@ namespace Inno
          *        Every submit in this renderer scene should be in between the BeginScene() and EndScene();
          * @param shader The given shader.
          * @param vertexArray The vertex array to render.
+         * @param transform The transform model matrix of the object.
          */
-        static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
+        static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4 transform);
 
     private:
         struct SceneData
@@ -57,8 +58,8 @@ namespace Inno
         };
 
     private:
-        static SceneData* s_SceneData;
-        static std::shared_ptr<RendererAPI> s_RendererAPI;
+        static Unq<SceneData> s_SceneData;
+        static Unq<RendererAPI> s_RendererAPI;
     };
 
 }

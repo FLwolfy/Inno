@@ -1,4 +1,6 @@
 #include <Inno.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <imgui.h>
 
 class ExampleLayer : public Inno::Layer
 {
@@ -16,7 +18,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<Inno::VertexBuffer> triangleVB = Inno::VertexBuffer::Create(vertices, sizeof(vertices));
+		Inno::Ref<Inno::VertexBuffer> triangleVB = Inno::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		Inno::ShaderDataType t = Inno::ShaderDataType::Float;
 		triangleVB->SetLayout({
@@ -25,7 +27,7 @@ public:
 		});
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Inno::IndexBuffer> triangleIB = Inno::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+		Inno::Ref<Inno::IndexBuffer> triangleIB = Inno::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
 		m_TriangleVA->AddVertexBuffer(triangleVB);
 		m_TriangleVA->SetIndexBuffer(triangleIB);
@@ -36,7 +38,8 @@ public:
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
 
-			uniform mat4 u_ViewProjection;
+			uniform mat4 u_CameraVP;
+			uniform mat4 u_Transform;
 			
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -45,7 +48,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_CameraVP * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -57,9 +60,11 @@ public:
 			in vec3 v_Position;
 			in vec4 v_Color;
 
+			uniform float u_ColorHue;
+
 			void main()
 			{
-				o_Color = v_Color;
+				o_Color = vec4(u_ColorHue * v_Color.r, u_ColorHue * v_Color.g, u_ColorHue * v_Color.b, v_Color.a);
 			}
 		)";
 
@@ -69,24 +74,38 @@ public:
 	virtual void OnUpdate() override
 	{
 		// Test Delta Time
-		INNO_LOGTRACE(Inno::Timestep::GetDeltaTimeSeconds());
+		// INNO_LOGTRACE(Inno::Timestep::GetDeltaTimeSeconds());
+		INNO_LOGTRACE(m_TriangleColorHue);
 
+		// Test Render
 		Inno::Renderer::Command::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		Inno::Renderer::Command::Clear();
 
-		m_Camera.SetPosition({ 0.5f, 0.5f, 0.0f });
-		m_Camera.SetRotation({ 0.0f, 0.0f, 45.0f });
+		m_Camera.SetPosition({ 0.25f, 0.0f, 0.0f });
+		m_Camera.SetRotation({ 0.0f, 0.0f, 180.0f });
+
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		m_TriangleShader->SetUniformFloat("u_ColorHue", m_TriangleColorHue);
 
 		Inno::Renderer::BeginScene(m_Camera);
 
-		Inno::Renderer::Submit(m_TriangleShader, m_TriangleVA);
+		for (int x = 0; x < 10; x++)
+		{
+			glm::vec3 position = glm::vec3(x * 0.11f, 0.0f, 0.0f);
+			glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * scale;
+			Inno::Renderer::Submit(m_TriangleShader, m_TriangleVA, transform);
+		}
 
 		Inno::Renderer::EndScene();
 	}
 
 	virtual void OnGuiRender() override
 	{
+		ImGui::Begin("Settings");
 
+		ImGui::SliderFloat("Triangle Hue", &m_TriangleColorHue, 0.0f, 1.0f, "Hue: %.1f");
+
+		ImGui::End();
 	}
 
 	virtual void OnEvent(Inno::Event& event) override
@@ -95,10 +114,11 @@ public:
 	}
 
 private:
-	std::shared_ptr<Inno::Shader> m_TriangleShader;
-	std::shared_ptr<Inno::VertexArray> m_TriangleVA;
-
 	Inno::Camera m_Camera;
+
+	Inno::Ref<Inno::Shader> m_TriangleShader;
+	Inno::Ref<Inno::VertexArray> m_TriangleVA;
+	float m_TriangleColorHue = 1.0f;
 };
 
 class App : public Inno::Application

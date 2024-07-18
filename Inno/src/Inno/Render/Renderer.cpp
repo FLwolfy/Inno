@@ -4,8 +4,8 @@
 namespace Inno
 {
 	////////////////* The Renderer Lies Here *////////////////
-	std::shared_ptr<RendererAPI> Renderer::s_RendererAPI = nullptr;
-	Renderer::SceneData* Renderer::s_SceneData = new SceneData;
+	Unq<RendererAPI> Renderer::s_RendererAPI = nullptr;
+	Unq<Renderer::SceneData> Renderer::s_SceneData = CreateUnq<Renderer::SceneData>();
 
 	void Renderer::BeginScene(Camera& camera)
 	{
@@ -16,10 +16,11 @@ namespace Inno
 	{
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
+	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4 transform)
 	{
 		shader->Bind();
-		shader->SetUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
+		shader->SetUniformMat4("u_CameraVP", s_SceneData->ViewProjectionMatrix);
+		shader->SetUniformMat4("u_Transform", transform);
 
 		vertexArray->Bind();
 		s_RendererAPI->DrawIndexed(vertexArray);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Inno/Core/Log.h"
+#include <memory>
 
 // ---------------------------------------------- //
 // ---------------Platform Defines--------------- //
@@ -107,3 +108,57 @@
  * @param base The base type T should inherit from.
  */
 #define GENERIC_TYPE(T, base) template<typename T, typename = std::enable_if_t<std::is_base_of<base, T>::value>>
+
+
+namespace Inno
+{
+    /**
+     * @brief A type alias for std::shared_ptr.
+     *
+     * This alias simplifies the usage of std::shared_ptr by reducing the amount of typing required.
+     * It can be used to create shared pointers in a more concise manner.
+     */
+    template<typename T>
+    using Ref = std::shared_ptr<T>;
+    /**
+     * @brief Creates a std::shared_ptr instance.
+     *
+     * This function creates and returns a std::shared_ptr instance, forwarding any arguments
+     * to the constructor of the type T.
+     *
+     * @tparam T The type of object to manage.
+     * @tparam Args The types of the arguments to forward to the constructor of T.
+     * @param args The arguments to forward to the constructor of T.
+     * @return A std::shared_ptr managing the newly created object.
+     */
+    template<typename T, typename ... Args>
+    constexpr Ref<T> CreateRef(Args&& ... args)
+    {
+        return std::make_shared<T>(std::forward<Args>(args)...);
+    }
+
+    /**
+     * @brief A type alias for std::unique_ptr.
+     *
+     * This alias simplifies the usage of std::unique_ptr by reducing the amount of typing required.
+     * It can be used to create unique pointers in a more concise manner.
+     */
+    template<typename T>
+    using Unq = std::unique_ptr<T>;
+    /**
+     * @brief Creates a std::unique_ptr instance.
+     *
+     * This function creates and returns a std::unique_ptr instance, forwarding any arguments
+     * to the constructor of the type T.
+     *
+     * @tparam T The type of object to manage.
+     * @tparam Args The types of the arguments to forward to the constructor of T.
+     * @param args The arguments to forward to the constructor of T.
+     * @return A std::unique_ptr managing the newly created object.
+     */
+    template<typename T, typename ... Args>
+    constexpr Unq<T> CreateUnq(Args&& ... args)
+    {
+        return std::make_unique<T>(std::forward<Args>(args)...);
+    }
+}

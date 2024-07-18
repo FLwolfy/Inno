@@ -23,7 +23,7 @@ namespace Inno
          * @brief Creates a RendererAPI instance based on the current rendering API.
          * @return The shared pointer to the created RendererAPI instance.
          */
-        static std::shared_ptr<RendererAPI> Create();
+        static Unq<RendererAPI> Create();
         /**
          * @brief Retrieves the current rendering API.
          * @return The current rendering API.

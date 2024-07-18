@@ -17,7 +17,7 @@ namespace Inno
 		INNO_CORE_LOGTRACE("Creating Window {0} ({1}, {2})", properties.Title, properties.Width, properties.Height);
 	}
 
-	std::unique_ptr<Window> Window::Create(const WindowProperties& properties)
+	Unq<Window> Window::Create(const WindowProperties& properties)
 	{
 		switch (s_WindowAPI)
 		{
@@ -29,7 +29,7 @@ namespace Inno
 			}
 			case Window::API::OpenGL:
 			{
-				return std::make_unique<OpenGLWindow>();
+				return CreateUnq<OpenGLWindow>();
 			}
 			default:
 			{

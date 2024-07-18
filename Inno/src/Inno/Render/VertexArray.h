@@ -50,7 +50,7 @@ namespace Inno
          *
          * @returns A shared pointer to the created VertexArray instance.
          */
-        static std::shared_ptr<VertexArray> Create();
+        static Ref<VertexArray> Create();
     };
 
 } 

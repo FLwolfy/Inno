@@ -105,12 +105,12 @@ namespace Inno
          * @brief Creates a new window with the specified properties according to the Window Render API.
          * @return A pointer to the newly created Window object.
          */
-        static std::unique_ptr<Window> Create(const WindowProperties& properties = WindowProperties());
+        static Unq<Window> Create(const WindowProperties& properties = WindowProperties());
 
     protected:
-        WindowData m_Data;           /// Window data structure.
-        GraphicsContext* m_Context;  /// Graphics context for the window.
-        void* m_WindowHandle;        /// Window handle.
+        WindowData m_Data;               /// Window data structure.
+        Unq<GraphicsContext> m_Context;  /// Graphics context for the window.
+        void* m_WindowHandle;            /// Window handle.
 
     private:
         static API s_WindowAPI;

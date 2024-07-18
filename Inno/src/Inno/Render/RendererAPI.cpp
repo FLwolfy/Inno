@@ -8,7 +8,7 @@ namespace Inno
 	/* Set to None as default */
 	RendererAPI::API RendererAPI::s_API = RendererAPI::API::None;
 
-	std::shared_ptr<RendererAPI> RendererAPI::Create()
+	Unq<RendererAPI> RendererAPI::Create()
 	{
 		switch (s_API)
 		{
@@ -20,7 +20,7 @@ namespace Inno
 			}
 			case RendererAPI::API::OpenGL:
 			{
-				return std::make_shared<OpenGLRendererAPI>();
+				return CreateUnq<OpenGLRendererAPI>();
 			}
 			default:
 			{

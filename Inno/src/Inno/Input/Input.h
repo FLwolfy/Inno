@@ -3,6 +3,7 @@
 #include "Inno/Input/Keycode.h"
 #include "Inno/Input/Mousecode.h"
 
+#include <glm/glm.hpp>
 
 namespace Inno
 {
@@ -30,7 +31,7 @@ namespace Inno
          * @brief Retrieves the current mouse position.
          * @return A pair containing the x and y coordinates of the mouse position.
          */
-        static std::pair<float, float> GetMousePosition() { return s_Instance->GetMousePositionImpl(); }
+        static glm::vec2 GetMousePosition() { return s_Instance->GetMousePositionImpl(); }
 
         /**
          * @brief Retrieves the current x-coordinate of the mouse position.
@@ -50,7 +51,7 @@ namespace Inno
 	private:
 		bool IsKeyPressedImpl(const Keycode keycode);
 		bool IsMouseButtonPressedImpl(const Mousecode mousecode);
-		std::pair<float, float> GetMousePositionImpl();
+		glm::vec2 GetMousePositionImpl();
 		float GetMouseXImpl();
 		float GetMouseYImpl();
 	};

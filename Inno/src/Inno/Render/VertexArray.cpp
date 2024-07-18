@@ -7,7 +7,7 @@
 
 namespace Inno
 {
-	std::shared_ptr<VertexArray> VertexArray::Create()
+	Ref<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::Command::GetAPI())
 		{
@@ -19,7 +19,7 @@ namespace Inno
 			}
 			case RendererAPI::API::OpenGL:
 			{
-				return std::make_shared<OpenGLVertexArray>();
+				return CreateRef<OpenGLVertexArray>();
 			}
 			default:
 			{
