@@ -71,6 +71,7 @@ namespace Inno
         ImGuiLayer* m_ImGuiLayer;
         LayerStack m_LayerStack;
         bool m_IsRunning = true;
+        float m_LastFrameTime = 0.0f;
 
     private:
         bool OnWindowClose(WindowCloseEvent& event);

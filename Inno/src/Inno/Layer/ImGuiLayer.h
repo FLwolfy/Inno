@@ -49,8 +49,5 @@ namespace Inno
          * @brief Ends the ImGui window rendering.
          */
         void End();
-        
-    private:
-        float m_Time = 0.0f;
     };
 }

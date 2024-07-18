@@ -22,7 +22,6 @@ namespace Inno {
          * @brief Initializes the OpenGL context and sets up the necessary OpenGL state and configurations.
          */
         virtual void Init() override;
-
         /**
          * @brief Swaps the front and back buffers of the OpenGL context. Presents the rendered frame to the screen.
          */

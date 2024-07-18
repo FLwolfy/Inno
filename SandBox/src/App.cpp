@@ -68,6 +68,9 @@ public:
 
 	virtual void OnUpdate() override
 	{
+		// Test Delta Time
+		INNO_LOGTRACE(Inno::Timestep::GetDeltaTimeSeconds());
+
 		Inno::Renderer::Command::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		Inno::Renderer::Command::Clear();
 

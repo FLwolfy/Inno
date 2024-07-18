@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "ImGuiLayer.h"
 
-#define IMGUI_IMPL_OPENGL_LOADER_GLAD
-
 #include <imgui.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
@@ -11,7 +9,6 @@
 #include "Inno/Core/Application.h"
 
 // Temporary
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Inno
@@ -89,6 +86,8 @@ namespace Inno
 	void ImGuiLayer::OnGuiRender()
 	{
 		static bool show = true;
+
+		// DEBUG: Show demo window
 		ImGui::ShowDemoWindow(&show);
 	}
 }

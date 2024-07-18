@@ -10,7 +10,7 @@ project "IMGUI"
 	-----------INCLUDE DIRECTORIES-----------
 	includedirs 
 	{ 
-		"src" 
+		"src"
 	}
 
 	-----------COMPILE FILES-----------

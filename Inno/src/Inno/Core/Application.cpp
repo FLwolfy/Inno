@@ -3,7 +3,10 @@
 
 #include "Inno/Core/Core.h"
 #include "Inno/Core/Log.h"
+#include "Inno/Core/Timestep.h"
 #include "Inno/Input/Input.h"
+
+#include <GLFW/glfw3.h>
 
 namespace Inno
 {
@@ -59,6 +62,11 @@ namespace Inno
 	{
 		while (m_IsRunning)
 		{
+			// Time Step
+			float time = (float)glfwGetTime();
+			Timestep::m_Time = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
 			// Layer Updating
 			for (Layer* layer : m_LayerStack)
 			{
