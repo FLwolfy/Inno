@@ -20,7 +20,13 @@ namespace Inno
 		auto now = std::chrono::system_clock::now();
 		auto now_time_t = std::chrono::system_clock::to_time_t(now);
 		std::tm now_tm;
-		localtime_s(&now_tm, &now_time_t);
+        
+        #ifdef INNO_PLATFORM_WINDOWS
+        localtime_s(&now_tm, &now_time_t);
+        #elif INNO_PLATFORM_MACOSX
+        localtime_r(&now_time_t, &now_tm);
+        #endif
+        
 		std::ostringstream oss;
 		oss << std::put_time(&now_tm, "%Y-%m-%d %H_%M_%S");
 		std::string dateString = oss.str();

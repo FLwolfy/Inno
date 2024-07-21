@@ -19,6 +19,11 @@ namespace Inno
 		{
 			int success = glfwInit();
 			INNO_CORE_ASSERT(success, "Initializing GLFW failed!");
+            
+            // Set the required OpenGL version to 4.5
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		}
 
 		GLFWwindow* glfwWindow = glfwCreateWindow((int)properties.Width, (int)properties.Height, m_Data.Title.c_str(), nullptr, nullptr);
