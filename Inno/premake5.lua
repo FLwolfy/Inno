@@ -7,9 +7,6 @@ project "Inno"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "pch.h"
-	pchsource "src/pch.cpp"
-
 	-----------INCLUDE DIRECTORIES-----------
 	includedirs 
 	{ 
@@ -44,6 +41,15 @@ project "Inno"
 	for _, proj in pairs(IncludeProjs) do
 		links { proj }
 	end
+
+	-----------PLATFORMS-----------
+	filter "system:windows"
+		pchheader "pch.h"
+		pchsource "src/pch.cpp"
+
+	filter "system:macosx"
+		pchheader "src/pch.h"
+
 	
 	-----------CONFIGURATIONS-----------
 	filter "configurations:Debug"
