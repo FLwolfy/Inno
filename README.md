@@ -28,7 +28,7 @@ These are the feature task lists that I am working on right now. Some new featur
   - [x] Input Polling
 
 - **Time Management**
-  - [ ] Timesteps and Delta Time
+  - [x] Timesteps and Delta Time
 
 - **Scene Management**
   - [ ] Scene Viewport
@@ -72,9 +72,9 @@ These are the feature task lists that I am working on right now. Some new featur
   - [x] Vertex Buffer
   - [x] Index Buffer
   - [ ] Texture
-    - [ ] Texture System
+    - [x] Texture System
     - [ ] Subtexture System (Sprites)
-  - [ ] Shader
+  - [x] Shader
 
 - **Renderer**
   - [ ] Renderer Core
