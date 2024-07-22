@@ -13,6 +13,10 @@ namespace Inno
         {
         public:
             /**
+             * @brief Initializes the renderer settings.
+             */
+            static inline void Init() { s_RendererAPI->Init(); }
+            /**
              * @brief Sets the clear color for rendering.
              * @param color The color to set as the clear color.
              */

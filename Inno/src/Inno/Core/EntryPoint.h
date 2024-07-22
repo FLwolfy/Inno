@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 
 	auto app = Inno::CreateApplication();
 	app->InitSettings();
-	app->InitWindow();
+	app->Init();
 	app->Start();
 	app->Run();
 	delete app;

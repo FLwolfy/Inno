@@ -7,7 +7,10 @@ namespace Inno
 	class OpenGLRendererAPI : public RendererAPI
 	{
 	public:
-        OpenGLRendererAPI();
+        /**
+         * @brief Initializes the renderer settings for OpenGL renderer API.
+         */
+        virtual void Init() override;
         
         /**
          * @brief Sets the clear color for the OpenGL rendering.

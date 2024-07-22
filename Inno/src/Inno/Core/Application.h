@@ -52,7 +52,7 @@ namespace Inno
         /**
          * @brief Initializes the application window.
          */
-        void InitWindow();
+        void Init();
 
         /**
          * @brief Initiates the application settings at the very beginning right after the construtor.
@@ -67,8 +67,8 @@ namespace Inno
     private:
         static Application* s_Instance;
 
-        Window* m_Window;
-        ImGuiLayer* m_ImGuiLayer;
+        Window* m_Window = nullptr;
+        ImGuiLayer* m_ImGuiLayer = nullptr;
         LayerStack m_LayerStack;
         bool m_IsRunning = true;
         float m_LastFrameTime = 0.0f;

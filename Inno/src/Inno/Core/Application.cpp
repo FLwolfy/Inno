@@ -6,6 +6,8 @@
 #include "Inno/Core/Timestep.h"
 #include "Inno/Input/Input.h"
 
+#include "Inno/Render/Renderer.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Inno
@@ -17,14 +19,14 @@ namespace Inno
 		/* Singleton Application */
 		INNO_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
-		m_ImGuiLayer = nullptr;
 	}
 
-	void Application::InitWindow()
+	void Application::Init()
 	{
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(BIND_FUNC(Application::OnEvent, this));
 		m_ImGuiLayer = ImGuiLayer::Create();
+		Renderer::Command::Init();
 		PushOverlay(m_ImGuiLayer);
 	}
 
