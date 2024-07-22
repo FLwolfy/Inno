@@ -105,7 +105,7 @@ namespace Inno
          * @brief Creates a new window with the specified properties according to the Window Render API.
          * @return A pointer to the newly created Window object.
          */
-        static Unq<Window> Create(const WindowProperties& properties = WindowProperties());
+        static Window* Create(const WindowProperties& properties = WindowProperties());
 
     protected:
         WindowData m_Data;               /// Window data structure.

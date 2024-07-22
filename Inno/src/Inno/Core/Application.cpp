@@ -20,11 +20,17 @@ namespace Inno
 		m_ImGuiLayer = nullptr;
 	}
 
+	Application::~Application()
+	{
+		delete m_ImGuiLayer;
+		delete m_Window;
+	}
+
 	void Application::InitWindow()
 	{
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(BIND_FUNC(Application::OnEvent, this));
-		m_ImGuiLayer = new ImGuiLayer();
+		m_ImGuiLayer = ImGuiLayer::Create();
 		PushOverlay(m_ImGuiLayer);
 	}
 

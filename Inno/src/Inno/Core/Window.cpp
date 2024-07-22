@@ -17,19 +17,19 @@ namespace Inno
 		INNO_CORE_LOGTRACE("Creating Window {0} ({1}, {2})", properties.Title, properties.Width, properties.Height);
 	}
 
-	Unq<Window> Window::Create(const WindowProperties& properties)
+	Window* Window::Create(const WindowProperties& properties)
 	{
 		switch (s_WindowAPI)
 		{
 			case Window::API::None:
 			{
 				// Temporary not support None API case
-				INNO_CORE_ASSERT(false, "RendererAPI::None current not supported!");
+				INNO_CORE_ASSERT(false, "Window::API::None current not supported!");
 				return nullptr;
 			}
 			case Window::API::OpenGL:
 			{
-				return CreateUnq<OpenGLWindow>();
+				return new OpenGLWindow();
 			}
 			default:
 			{

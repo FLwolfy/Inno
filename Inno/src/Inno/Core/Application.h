@@ -12,7 +12,7 @@ namespace Inno
     {
     public:
         Application();
-        virtual ~Application() = default;
+        virtual ~Application();
 
         /**
          * @brief Returns the singleton instance of the application.
@@ -67,7 +67,7 @@ namespace Inno
     private:
         static Application* s_Instance;
 
-        Unq<Window> m_Window;
+        Window* m_Window;
         ImGuiLayer* m_ImGuiLayer;
         LayerStack m_LayerStack;
         bool m_IsRunning = true;
