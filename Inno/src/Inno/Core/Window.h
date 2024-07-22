@@ -79,6 +79,10 @@ namespace Inno
          * @return True if VSync is enabled, false otherwise.
          */
         virtual bool IsVSync() const = 0;
+        /**
+         * @brief Gets the current frame time of this window render.
+         */
+        virtual float GetWindowTime() const = 0;
 
         /**
          * @brief Retrieves the width of the window.

@@ -16,6 +16,7 @@
 #include "Inno/Render/Renderer.h"
 #include "Inno/Render/Buffer.h"
 #include "Inno/Render/Shader.h"
+#include "Inno/Render/Texture.h"
 #include "Inno/Render/VertexArray.h"
 #include "Inno/Render/Camera.h"
 

@@ -24,6 +24,10 @@ namespace Inno
          * @return True if VSync is enabled, false otherwise.
          */
         virtual bool IsVSync() const override;
+        /**
+         * @brief Gets the current frame time of this window render.
+         */
+        virtual float GetWindowTime() const override;
 
     private:
         static unsigned int s_GLFWWindowCount;

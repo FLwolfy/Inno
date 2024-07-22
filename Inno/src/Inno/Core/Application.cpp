@@ -8,6 +8,7 @@
 
 #include "Inno/Render/Renderer.h"
 
+// Temporary
 #include <GLFW/glfw3.h>
 
 namespace Inno
@@ -65,7 +66,7 @@ namespace Inno
 		while (m_IsRunning)
 		{
 			// Time Step
-			float time = (float)glfwGetTime();
+			float time = m_Window->GetWindowTime();
 			Timestep::m_Time = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
