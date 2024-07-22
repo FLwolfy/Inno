@@ -63,6 +63,7 @@ namespace Inno
 
     public:
         Window(const WindowProperties& properties);
+        virtual ~Window() = default;
 
         /**
          * @brief Updates the window.

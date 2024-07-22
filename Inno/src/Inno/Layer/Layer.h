@@ -20,23 +20,23 @@ namespace Inno
         /**
          * @brief Called when the layer is detached.
          */
-        virtual void OnDetach();
+        virtual void OnDetach() {}
 
         /**
          * @brief Called every frame to update the layer.
          */
-        virtual void OnUpdate();
+        virtual void OnUpdate() {}
 
         /**
          * @brief Called to handle the GUI events of this layer.
          */
-        virtual void OnGuiRender();
+        virtual void OnGuiRender() {}
 
         /**
          * @brief Called when an event occurs.
          * @param event The event that occurred.
          */
-        virtual void OnEvent(Event& event);
+        virtual void OnEvent(Event& event) {}
 
         /**
          * @brief Returns the name of the layer.
