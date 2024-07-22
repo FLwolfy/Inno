@@ -20,12 +20,6 @@ namespace Inno
 		m_ImGuiLayer = nullptr;
 	}
 
-	Application::~Application()
-	{
-		delete m_ImGuiLayer;
-		delete m_Window;
-	}
-
 	void Application::InitWindow()
 	{
 		m_Window = Window::Create();

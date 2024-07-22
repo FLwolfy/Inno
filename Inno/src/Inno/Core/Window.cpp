@@ -14,6 +14,8 @@ namespace Inno
 		m_Data.Width = properties.Width;
 		m_Data.Height = properties.Height;
 
+		m_WindowHandle = nullptr;
+
 		INNO_CORE_LOGTRACE("Creating Window {0} ({1}, {2})", properties.Title, properties.Width, properties.Height);
 	}
 

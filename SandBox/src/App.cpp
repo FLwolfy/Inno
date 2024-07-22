@@ -75,7 +75,6 @@ public:
 	{
 		// Test Delta Time
 		// INNO_LOGTRACE(Inno::Timestep::GetDeltaTimeSeconds());
-		INNO_LOGTRACE(m_TriangleColorHue);
 
 		// Test Render
 		Inno::Renderer::Command::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
