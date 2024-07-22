@@ -19,6 +19,8 @@ namespace Inno
         };
 
     public:
+        virtual ~RendererAPI() = default;
+        
         /**
          * @brief Creates a RendererAPI instance based on the current rendering API.
          * @return The shared pointer to the created RendererAPI instance.

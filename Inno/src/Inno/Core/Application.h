@@ -12,6 +12,7 @@ namespace Inno
     {
     public:
         Application();
+        virtual ~Application() = default;
 
         /**
          * @brief Returns the singleton instance of the application.

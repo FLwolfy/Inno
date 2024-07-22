@@ -20,7 +20,6 @@ public:
 
 		Inno::Ref<Inno::VertexBuffer> triangleVB = Inno::VertexBuffer::Create(vertices, sizeof(vertices));
 
-		Inno::ShaderDataType t = Inno::ShaderDataType::Float;
 		triangleVB->SetLayout({
 			{ Inno::ShaderDataType::Float3, "a_Position" },
 			{ Inno::ShaderDataType::Float4, "a_Color"}

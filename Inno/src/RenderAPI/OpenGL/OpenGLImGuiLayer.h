@@ -27,12 +27,12 @@ namespace Inno
         /**
          * @brief Begins the OpenGL ImGui window rendering.
          */
-        void Begin();
+        void Begin() override;
 
         /**
          * @brief Ends the OpenGL ImGui window rendering.
          */
-        void End();
+        void End() override;
 	};
 }
 

@@ -7,6 +7,8 @@ namespace Inno
 	class OpenGLRendererAPI : public RendererAPI
 	{
 	public:
+        OpenGLRendererAPI();
+        
         /**
          * @brief Sets the clear color for the OpenGL rendering.
          * @param color The color to set as the clear color.
