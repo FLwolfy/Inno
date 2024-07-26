@@ -169,6 +169,10 @@ namespace Inno
          * @brief Creates the shader instance according to the current Renderer API.
          */
         static Ref<Shader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+        /**
+         * @brief Creates the shader instance according to the current Renderer API.
+         */
+        static Ref<Shader> Create(const std::string& filepath);
 
     protected:
         std::string m_Name;

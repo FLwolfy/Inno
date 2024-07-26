@@ -8,91 +8,58 @@ public:
 	ExampleLayer()
 		: Layer("Example")
 	{
+		// Camera Create
 		m_Camera = Inno::OrthographicCamera(-1.6f, 1.6f, -0.9f, 0.9f);
 
-		m_TriangleVA = Inno::VertexArray::Create();
+		// Vertex Array Create
+		m_VA = Inno::VertexArray::Create();
 
-		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+		float vertices[4 * 5] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-		Inno::Ref<Inno::VertexBuffer> triangleVB = Inno::VertexBuffer::Create(vertices, sizeof(vertices));
+		Inno::Ref<Inno::VertexBuffer> VB = Inno::VertexBuffer::Create(vertices, sizeof(vertices));
 
-		triangleVB->SetLayout({
+		VB->SetLayout({
 			{ Inno::ShaderDataType::Float3, "a_Position" },
-			{ Inno::ShaderDataType::Float4, "a_Color"}
+			{ Inno::ShaderDataType::Float2, "a_TexCoord" }
 		});
 
-		uint32_t indices[3] = { 0, 1, 2 };
-		Inno::Ref<Inno::IndexBuffer> triangleIB = Inno::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+		uint32_t indices[6] = { 0, 1, 2, 2, 3, 0 };
+		Inno::Ref<Inno::IndexBuffer> IB = Inno::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
-		m_TriangleVA->AddVertexBuffer(triangleVB);
-		m_TriangleVA->SetIndexBuffer(triangleIB);
+		m_VA->AddVertexBuffer(VB);
+		m_VA->SetIndexBuffer(IB);
 
-		std::string shaderVertexSrc = R"(
-			#version 330 core
+		// Shader Create
+		m_Shader = Inno::Shader::Create("assets/shaders/Texture.glsl");
 
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec4 a_Color;
-
-			uniform mat4 u_CameraVP;
-			uniform mat4 u_Transform;
-			
-			out vec3 v_Position;
-			out vec4 v_Color;
-
-			void main()
-			{
-				v_Position = a_Position;
-				v_Color = a_Color;
-				gl_Position = u_CameraVP * u_Transform * vec4(a_Position, 1.0);
-			}
-		)";
-
-		std::string shaderFragmentSrc = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 o_Color;
-
-			in vec3 v_Position;
-			in vec4 v_Color;
-
-			uniform float u_ColorHue;
-
-			void main()
-			{
-				o_Color = vec4(u_ColorHue * v_Color.r, u_ColorHue * v_Color.g, u_ColorHue * v_Color.b, v_Color.a);
-			}
-		)";
-
-		m_TriangleShader = Inno::Shader::Create("Triangle Shader", shaderVertexSrc, shaderFragmentSrc);
+		// Texture Create
+		m_Texture = Inno::Texture2D::Create("assets/textures/coin.png");
+		m_Texture->Bind(0);
+		m_Shader->SetUniformInt("u_Texture", 0);
 	}
 
 	virtual void OnUpdate() override
 	{
-		// Test Delta Time
+		// DEBUG: Test Delta Time
 		// INNO_LOGTRACE(Inno::Timestep::GetDeltaTimeSeconds());
 
-		// Test Render
+		// DEBUG: Test Render
 		Inno::Renderer::Command::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		Inno::Renderer::Command::Clear();
 
 		m_Camera.SetPosition({ 0.25f, 0.0f, 0.0f });
-		m_Camera.SetRotation({ 0.0f, 0.0f, 180.0f });
+		m_Camera.SetRotation({ 0.0f, 0.0f, 0.0f });
 
-		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
-		m_TriangleShader->SetUniformFloat("u_ColorHue", m_TriangleColorHue);
+		m_Shader->SetUniformFloat("u_Visibility", m_Visibility);
 
 		Inno::Renderer::BeginScene(m_Camera);
 
-		for (int x = 0; x < 10; x++)
-		{
-			glm::vec3 position = glm::vec3(x * 0.11f, 0.0f, 0.0f);
-			glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * scale;
-			Inno::Renderer::Submit(m_TriangleShader, m_TriangleVA, transform);
-		}
+		Inno::Renderer::Submit(m_Shader, m_VA, glm::translate(glm::mat4(1.0f), glm::vec3(0.11f, 0.0f, 0.0f)));
 
 		Inno::Renderer::EndScene();
 	}
@@ -101,7 +68,7 @@ public:
 	{
 		ImGui::Begin("Settings");
 
-		ImGui::SliderFloat("Triangle Hue", &m_TriangleColorHue, 0.0f, 1.0f, "Hue: %.1f");
+		ImGui::SliderFloat("Visibility", &m_Visibility, 0.0f, 1.0f, "Hue: %.1f");
 
 		ImGui::End();
 	}
@@ -114,9 +81,11 @@ public:
 private:
 	Inno::Camera m_Camera;
 
-	Inno::Ref<Inno::Shader> m_TriangleShader;
-	Inno::Ref<Inno::VertexArray> m_TriangleVA;
-	float m_TriangleColorHue = 1.0f;
+	Inno::Ref<Inno::Shader> m_Shader;
+	Inno::Ref<Inno::VertexArray> m_VA;
+	Inno::Ref<Inno::Texture> m_Texture;
+
+	float m_Visibility = 1.0f;
 };
 
 class App : public Inno::Application

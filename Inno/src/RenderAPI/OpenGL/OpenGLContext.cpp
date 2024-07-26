@@ -20,6 +20,7 @@ namespace Inno {
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		INNO_CORE_ASSERT(status, "Failed to initialize Glad!");
 
+		INNO_CORE_LOGINFO("The Renderer Context Info:");
 		INNO_CORE_LOGINFO("+-------------------------------------------------------------------------+");
 		INNO_CORE_LOGINFO("|                               OpenGL Info                               |");
 		INNO_CORE_LOGINFO("+-------------------------------------------------------------------------+");

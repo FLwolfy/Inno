@@ -79,9 +79,8 @@ namespace Inno
 
 	void OpenGLImGuiLayer::OnGuiRender()
 	{
-		static bool show = true;
-
 		// DEBUG: Show demo window
-		ImGui::ShowDemoWindow(&show);
+		// static bool show = true;
+		// ImGui::ShowDemoWindow(&show);
 	}
 }

@@ -27,4 +27,26 @@ namespace Inno
 			}
 		}
 	}
+
+	Ref<Shader> Shader::Create(const std::string& filepath)
+	{
+		switch (Renderer::Command::GetAPI())
+		{
+			case RendererAPI::API::None:
+			{
+				// Temporary not support None API case
+				INNO_CORE_ASSERT(false, "RendererAPI::None current not supported!");
+				return nullptr;
+			}
+			case RendererAPI::API::OpenGL:
+			{
+				return CreateRef<OpenGLShader>(filepath);
+			}
+			default:
+			{
+				INNO_CORE_ASSERT(false, "Unknown RendererAPI!");
+				return nullptr;
+			}
+		}
+	}
 }

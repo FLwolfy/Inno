@@ -16,7 +16,8 @@ namespace Inno
 
 		m_WindowHandle = nullptr;
 
-		INNO_CORE_LOGTRACE("Creating Window {0} ({1}, {2})", properties.Title, properties.Width, properties.Height);
+		// DEBUG: Window Properties
+		// INNO_CORE_LOGTRACE("Creating Window {0} ({1}, {2})", properties.Title, properties.Width, properties.Height);
 	}
 
 	Window* Window::Create(const WindowProperties& properties)

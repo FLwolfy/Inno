@@ -1,21 +1,16 @@
 #pragma once
 
-#include <string>
-
 #include "Inno/Render/Shader.h"
+
+#include <glad/glad.h>
 
 namespace Inno
 {
     class OpenGLShader : public Shader
     {
     public:
-        /**
-         * @brief Constructs an OpenGLShader with the specified name, vertex source, and fragment source.
-         * @param name The name of the shader.
-         * @param vertexSrc The vertex shader source code.
-         * @param fragmentSrc The fragment shader source code.
-         */
         OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+        OpenGLShader(const std::string& filepath);
         ~OpenGLShader();
 
         /**
@@ -87,6 +82,11 @@ namespace Inno
 
     private:
         uint32_t m_RendererID;
+
+    private:
+        std::string ReadFile(const std::string& filepath);
+        std::unordered_map<GLenum, std::string> SplitShaders(const std::string& source);
+        void Compile(const std::unordered_map<GLenum, std::string>& shaderSrcs);
     };
 
 }
