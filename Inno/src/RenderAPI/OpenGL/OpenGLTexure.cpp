@@ -103,7 +103,7 @@ namespace Inno
 		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, data);
 	}
 
-	void OpenGLTexture2D::Bind(uint32_t slot) const
+	void OpenGLTexture2D::BindSlot(uint32_t slot) const
 	{
 		glBindTextureUnit(slot, m_RendererID);
 	}

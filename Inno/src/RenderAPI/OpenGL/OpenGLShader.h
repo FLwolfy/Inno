@@ -10,7 +10,7 @@ namespace Inno
     {
     public:
         OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
-        OpenGLShader(const std::string& filepath);
+        OpenGLShader(const std::string& filepath, const std::string& name = "");
         ~OpenGLShader();
 
         /**

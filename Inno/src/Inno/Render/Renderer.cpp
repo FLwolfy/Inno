@@ -6,6 +6,7 @@ namespace Inno
 	////////////////* The Renderer Lies Here *////////////////
 	Unq<RendererAPI> Renderer::s_RendererAPI = nullptr;
 	Unq<Renderer::SceneData> Renderer::s_SceneData = CreateUnq<Renderer::SceneData>();
+	ShaderLibrary Renderer::s_ShaderLibrary = ShaderLibrary();
 
 	void Renderer::BeginScene(Camera& camera)
 	{

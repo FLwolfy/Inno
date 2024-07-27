@@ -37,15 +37,18 @@ namespace Inno
 		Compile(shaderSrcs);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& filepath)
-		: Shader(""), m_RendererID(0)
+	OpenGLShader::OpenGLShader(const std::string& filepath, const std::string& name)
+		: Shader(name), m_RendererID(0)
 	{
 		// Read File Name
-		auto lastSlash = filepath.find_last_of("/\\");
-		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
-		auto lastDot = filepath.rfind('.');
-		auto count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;
-		m_Name = filepath.substr(lastSlash, count);
+		if (name == "")
+		{
+			auto lastSlash = filepath.find_last_of("/\\");
+			lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+			auto lastDot = filepath.rfind('.');
+			auto count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;
+			m_Name = filepath.substr(lastSlash, count);
+		}
 
 		// Read File
 		std::string shaderSrc = ReadFile(filepath);
@@ -65,7 +68,7 @@ namespace Inno
 	std::string OpenGLShader::ReadFile(const std::string& filepath)
 	{
 		std::string result;
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
@@ -121,7 +124,9 @@ namespace Inno
 		GLuint program = glCreateProgram();
 
 		// Record the shader IDs
-		std::vector<GLenum> glShaderIDs(shaderSrcs.size());
+		INNO_CORE_ASSERT(shaderSrcs.size() <= 2, "OpenGLShader takes 2 shaders once maximize.")
+		std::array<GLenum, 2> glShaderIDs;
+		int glShaderIDIndex = 0;
 
 		for (auto& keyValue : shaderSrcs)
 		{
@@ -162,6 +167,8 @@ namespace Inno
 
 			// Attach our shader to our program
 			glAttachShader(program, shader);
+			glShaderIDs[glShaderIDIndex] = shader;
+			glShaderIDIndex++;
 		}
 
 		// Vertex and fragment shaders are successfully compiled.

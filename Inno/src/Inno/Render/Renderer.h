@@ -26,9 +26,13 @@ namespace Inno
              */
             static inline void Clear() { s_RendererAPI->Clear(); }
             /**
+              * @brief Retrieves the shader library of the current rendering API.
+              */
+            static inline ShaderLibrary& GetShaderLibrary() { return s_ShaderLibrary; }
+            /**
              * @brief Retrieves the current rendering API.
              */
-            static inline RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+            static inline const RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
             /**
              * @brief Sets the current rendering API.
              */
@@ -64,6 +68,8 @@ namespace Inno
     private:
         static Unq<SceneData> s_SceneData;
         static Unq<RendererAPI> s_RendererAPI;
+
+        static ShaderLibrary s_ShaderLibrary;
     };
 
 }

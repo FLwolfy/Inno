@@ -88,6 +88,8 @@ namespace Inno
      */
     class Shader
     {
+        friend class ShaderLibrary;
+
     public:
         Shader(const std::string& name)
             : m_Name(name) {}
@@ -165,6 +167,10 @@ namespace Inno
          */
         inline const std::string& GetName() const { return m_Name; }
 
+    protected:
+        std::string m_Name;
+
+    private:
         /**
          * @brief Creates the shader instance according to the current Renderer API.
          */
@@ -172,9 +178,34 @@ namespace Inno
         /**
          * @brief Creates the shader instance according to the current Renderer API.
          */
-        static Ref<Shader> Create(const std::string& filepath);
+        static Ref<Shader> Create(const std::string& filepath, const std::string& name = "");
+    };
 
-    protected:
-        std::string m_Name;
+    class ShaderLibrary
+    {
+    public:
+        /** @brief Adds a shader to the library without a name.
+         *  @param shader A reference to the shader to add.
+         */
+        void Add(const Ref<Shader>& shader);
+        /** @brief Loads a shader from a file and associates it with a name.
+         *  @param name The name to associate with the shader.
+         *  @param filepath The path to the shader file.
+         *  @return A reference to the loaded shader.
+         */
+        Ref<Shader> Load(const std::string& filepath, const std::string& name = "");
+        /** @brief Retrieves a shader by its name.
+         *  @param name The name of the shader to retrieve.
+         *  @return A reference to the shader associated with the given name.
+         */
+        Ref<Shader> Get(const std::string& name);
+
+        /** @brief Checks if a shader with the specified name exists in the library.
+         *  @param name The name of the shader to check.
+         *  @return True if the shader exists, false otherwise.
+         */
+        bool Contains(const std::string& name) const;
+    private:
+        std::unordered_map<std::string, Ref<Shader>> m_ShaderContainer;
     };
 }

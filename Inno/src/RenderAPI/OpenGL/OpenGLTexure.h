@@ -41,7 +41,7 @@ namespace Inno
 		 * @brief Binds the texture to a specific slot.
 		 * @param slot The slot to bind the texture to (default is 0).
 		 */
-		virtual void Bind(uint32_t slot = 0) const override;
+		virtual void BindSlot(uint32_t slot = 0) const override;
 		/**
 		 * @brief Checks if the texture is loaded.
 		 * @return True if the texture is loaded, false otherwise.

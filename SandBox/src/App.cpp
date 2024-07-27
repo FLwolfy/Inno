@@ -34,13 +34,13 @@ public:
 		m_VA->AddVertexBuffer(VB);
 		m_VA->SetIndexBuffer(IB);
 
-		// Shader Create
-		m_Shader = Inno::Shader::Create("assets/shaders/Texture.glsl");
+		// Shader Load
+		Inno::Renderer::Command::GetShaderLibrary().Load("assets/shaders/Texture.glsl", "texture");
 
 		// Texture Create
 		m_Texture = Inno::Texture2D::Create("assets/textures/coin.png");
-		m_Texture->Bind(0);
-		m_Shader->SetUniformInt("u_Texture", 0);
+		m_Texture->BindSlot(0);
+		Inno::Renderer::Command::GetShaderLibrary().Get("texture")->SetUniformInt("u_Texture", 0);
 	}
 
 	virtual void OnUpdate() override
@@ -55,11 +55,12 @@ public:
 		m_Camera.SetPosition({ 0.25f, 0.0f, 0.0f });
 		m_Camera.SetRotation({ 0.0f, 0.0f, 0.0f });
 
-		m_Shader->SetUniformFloat("u_Visibility", m_Visibility);
+		Inno::Ref<Inno::Shader> shader = Inno::Renderer::Command::GetShaderLibrary().Get("texture");
+		shader->SetUniformFloat("u_Visibility", m_Visibility);
 
 		Inno::Renderer::BeginScene(m_Camera);
 
-		Inno::Renderer::Submit(m_Shader, m_VA, glm::translate(glm::mat4(1.0f), glm::vec3(0.11f, 0.0f, 0.0f)));
+		Inno::Renderer::Submit(shader, m_VA, glm::translate(glm::mat4(1.0f), glm::vec3(0.11f, 0.0f, 0.0f)));
 
 		Inno::Renderer::EndScene();
 	}
@@ -81,7 +82,6 @@ public:
 private:
 	Inno::Camera m_Camera;
 
-	Inno::Ref<Inno::Shader> m_Shader;
 	Inno::Ref<Inno::VertexArray> m_VA;
 	Inno::Ref<Inno::Texture> m_Texture;
 
