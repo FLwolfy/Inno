@@ -3,7 +3,6 @@
 
 namespace Inno
 {
-	////////////////* The Renderer Lies Here *////////////////
 	Unq<RendererAPI> Renderer::s_RendererAPI = nullptr;
 	Unq<Renderer::SceneData> Renderer::s_SceneData = CreateUnq<Renderer::SceneData>();
 	ShaderLibrary Renderer::s_ShaderLibrary = ShaderLibrary();
@@ -25,13 +24,5 @@ namespace Inno
 
 		vertexArray->Bind();
 		s_RendererAPI->DrawIndexed(vertexArray);
-	}
-
-	////////////////* The Renderer Command Lies Here *////////////////
-
-	void Renderer::Command::SetAPI(RendererAPI::API api)
-	{
-		RendererAPI::SetAPI(api);
-		s_RendererAPI = RendererAPI::Create();
 	}
 }

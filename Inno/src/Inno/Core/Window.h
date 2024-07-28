@@ -10,31 +10,12 @@ namespace Inno
     public:
         using EventCallbackFn = std::function<void(Event&)>;   /// Event callback function type.
 
-        /**
-         * @brief Enumeration of supported Window APIs.
-         */
         enum class API
         {
             None = 0,   /// No specific rendering API selected.
             OpenGL      /// OpenGL rendering API.
         };
 
-        class Command
-        {
-        public:
-            /**
-             * @brief Retrieves the current Window API.
-             */
-            static inline API GetAPI() { return s_WindowAPI; }
-            /**
-             * @brief Sets the current Window API.
-             */
-            static inline void SetAPI(API api) { s_WindowAPI = api; }
-        };
-
-        /**
-         * @brief Internal structure for storing window properties.
-         */
         struct WindowProperties
         {
         public:
@@ -49,9 +30,6 @@ namespace Inno
                 : Title(title), Width(width), Height(height) {}
         };
 
-        /**
-         * @brief Internal structure for storing window-specific data.
-         */
         struct WindowData
         {
         public:
@@ -106,6 +84,14 @@ namespace Inno
          */
         inline void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
 
+        /**
+         * @brief Retrieves the current Window API.
+         */
+        static inline API GetAPI() { return s_WindowAPI; }
+        /**
+         * @brief Sets the current Window API.
+         */
+        static inline void SetAPI(API api) { s_WindowAPI = api; }
         /**
          * @brief Creates a new window with the specified properties according to the Window Render API.
          * @return A pointer to the newly created Window object.

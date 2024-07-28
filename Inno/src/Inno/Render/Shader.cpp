@@ -10,7 +10,7 @@ namespace Inno
 
 	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
-		switch (Renderer::Command::GetAPI())
+		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:
 			{
@@ -32,7 +32,7 @@ namespace Inno
 
 	Ref<Shader> Shader::Create(const std::string& filepath, const std::string& name)
 	{
-		switch (Renderer::Command::GetAPI())
+		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:
 			{

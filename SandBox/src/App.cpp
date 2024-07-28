@@ -9,7 +9,9 @@ public:
 		: Layer("Example")
 	{
 		// Camera Create
-		m_Camera = Inno::OrthographicCamera(-1.6f, 1.6f, -0.9f, 0.9f);
+		m_Camera = Inno::OrthographicCamera(1280.0f / 720.0f);
+		m_Camera.SetPosition({ 0.25f, 0.0f, 0.0f });
+		m_Camera.SetRotation({ 30.0f, 45.0f, 180.0f });
 
 		// Vertex Array Create
 		m_VA = Inno::VertexArray::Create();
@@ -35,12 +37,12 @@ public:
 		m_VA->SetIndexBuffer(IB);
 
 		// Shader Load
-		Inno::Renderer::Command::GetShaderLibrary().Load("assets/shaders/Texture.glsl", "texture");
+		Inno::Renderer::GetShaderLibrary().Load("assets/shaders/Texture.glsl", "texture");
 
 		// Texture Create
 		m_Texture = Inno::Texture2D::Create("assets/textures/coin.png");
 		m_Texture->BindSlot(0);
-		Inno::Renderer::Command::GetShaderLibrary().Get("texture")->SetUniformInt("u_Texture", 0);
+		Inno::Renderer::GetShaderLibrary().Get("texture")->SetUniformInt("u_Texture", 0);
 	}
 
 	virtual void OnUpdate() override
@@ -49,13 +51,12 @@ public:
 		// INNO_LOGTRACE(Inno::Timestep::GetDeltaTimeSeconds());
 
 		// DEBUG: Test Render
-		Inno::Renderer::Command::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
-		Inno::Renderer::Command::Clear();
+		m_Camera.OnUpdate();
 
-		m_Camera.SetPosition({ 0.25f, 0.0f, 0.0f });
-		m_Camera.SetRotation({ 0.0f, 0.0f, 0.0f });
+		Inno::RendererCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+		Inno::RendererCommand::Clear();
 
-		Inno::Ref<Inno::Shader> shader = Inno::Renderer::Command::GetShaderLibrary().Get("texture");
+		Inno::Ref<Inno::Shader> shader = Inno::Renderer::GetShaderLibrary().Get("texture");
 		shader->SetUniformFloat("u_Visibility", m_Visibility);
 
 		Inno::Renderer::BeginScene(m_Camera);
@@ -76,7 +77,7 @@ public:
 
 	virtual void OnEvent(Inno::Event& event) override
 	{
-
+		m_Camera.OnEvent(event);
 	}
 
 private:
@@ -93,8 +94,8 @@ class App : public Inno::Application
 public:
 	virtual void InitSettings() override
 	{
-		Inno::Window::Command::SetAPI(Inno::Window::API::OpenGL);
-		Inno::Renderer::Command::SetAPI(Inno::RendererAPI::API::OpenGL);
+		Inno::Window::SetAPI(Inno::Window::API::OpenGL);
+		Inno::Renderer::SetAPI(Inno::RendererAPI::API::OpenGL);
 	}
 
 	virtual void Start() override

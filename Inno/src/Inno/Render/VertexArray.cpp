@@ -9,7 +9,7 @@ namespace Inno
 {
 	Ref<VertexArray> VertexArray::Create()
 	{
-		switch (Renderer::Command::GetAPI())
+		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:
 			{

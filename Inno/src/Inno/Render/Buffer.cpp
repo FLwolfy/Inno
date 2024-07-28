@@ -10,7 +10,7 @@ namespace Inno
 {
 	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
-		switch (Renderer::Command::GetAPI())
+		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:
 			{
@@ -32,7 +32,7 @@ namespace Inno
 
 	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
-		switch (Renderer::Command::GetAPI())
+		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:
 			{

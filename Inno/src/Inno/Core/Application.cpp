@@ -27,7 +27,7 @@ namespace Inno
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(BIND_FUNC(Application::OnEvent, this));
 		m_ImGuiLayer = ImGuiLayer::Create();
-		Renderer::Command::Init();
+		Renderer::Init();
 		PushOverlay(m_ImGuiLayer);
 	}
 

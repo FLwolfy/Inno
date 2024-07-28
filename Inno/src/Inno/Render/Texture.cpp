@@ -9,7 +9,7 @@ namespace Inno
 {
 	Ref<Texture2D> Texture2D::Create(const TextureProperties& properties)
 	{
-		switch (Renderer::Command::GetAPI())
+		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:
 			{
@@ -30,7 +30,7 @@ namespace Inno
 
 	Ref<Texture2D> Texture2D::Create(const std::string& path)
 	{
-		switch (Renderer::Command::GetAPI())
+		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:
 			{

@@ -13,7 +13,7 @@ namespace Inno
 
 	ImGuiLayer* ImGuiLayer::Create()
 	{
-		switch (Window::Command::GetAPI())
+		switch (Window::GetAPI())
 		{
 			case Window::API::None:
 			{
