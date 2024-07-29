@@ -82,7 +82,6 @@ namespace Inno
 
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& event);
-		bool OnWindowResized(WindowResizeEvent& event);
 	};
 
 

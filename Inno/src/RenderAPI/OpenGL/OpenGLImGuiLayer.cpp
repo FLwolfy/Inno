@@ -77,6 +77,16 @@ namespace Inno
 		}
 	}
 
+	void OpenGLImGuiLayer::OnEvent(Event& event)
+	{
+		if (m_BlockEvents)
+		{
+			ImGuiIO& io = ImGui::GetIO();
+			event.IsHandled |= event.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			event.IsHandled |= event.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		}
+	}
+
 	void OpenGLImGuiLayer::OnGuiRender()
 	{
 		// DEBUG: Show demo window

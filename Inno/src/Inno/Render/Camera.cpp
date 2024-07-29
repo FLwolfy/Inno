@@ -88,7 +88,6 @@ namespace Inno
 	void Camera::OnEvent(Event& event)
 	{
 		event.Dispatch<MouseScrolledEvent>(BIND_FUNC(Camera::OnMouseScrolled, this));
-		event.Dispatch<WindowResizeEvent>(BIND_FUNC(Camera::OnWindowResized, this));
 	}
 
 	void Camera::Resize(float width, float height)
@@ -105,12 +104,6 @@ namespace Inno
 		m_ProjectionMatrix = glm::ortho(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel, -1.0f, 1.0f);
 		SetViewProjectionMatrix();
 
-		return false;
-	}
-
-	bool Camera::OnWindowResized(WindowResizeEvent& event)
-	{
-		Resize((float)event.GetWidth(), (float)event.GetHeight());
 		return false;
 	}
 

@@ -4,6 +4,10 @@
 
 namespace Inno
 {
+    /////////////////////////////////////////////////////////////
+    //////////////////////* VERTEX BUFFER *//////////////////////
+    /////////////////////////////////////////////////////////////
+
     /**
      * @brief Structure representing a single buffer element.
      */
@@ -95,22 +99,15 @@ namespace Inno
         }
     };
 
-    /**
-     * @brief Abstract class representing a vertex buffer.
-     */
     class VertexBuffer
     {
     public:
-        /**
-         * @brief Destructor for VertexBuffer.
-         */
         virtual ~VertexBuffer() = default;
 
         /**
          * @brief Binds the vertex buffer for rendering.
          */
         virtual void Bind() const = 0;
-
         /**
          * @brief Unbinds the vertex buffer.
          */
@@ -121,7 +118,6 @@ namespace Inno
          * @param layout Input buffer layout.
          */
         virtual inline void SetLayout(const BufferLayout& layout) = 0;
-
         /**
          * @brief Gets the buffer layout used of this vertex buffer.
          * @returns The buffer layout currently used.
@@ -137,9 +133,10 @@ namespace Inno
         static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
     };
 
-    /**
-     * @brief Abstract class representing an index buffer.
-     */
+    ////////////////////////////////////////////////////////////
+    //////////////////////* INDEX BUFFER *//////////////////////
+    ////////////////////////////////////////////////////////////
+
     class IndexBuffer
     {
     public:
@@ -171,5 +168,100 @@ namespace Inno
          * @returns A shared pointer to the created IndexBuffer instance.
          */
         static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t count);
+    };
+
+    ////////////////////////////////////////////////////////////
+    //////////////////////* FRAME BUFFER *//////////////////////
+    ////////////////////////////////////////////////////////////
+
+    enum class FrameBufferAttachmentFormat
+    {
+        None = 0,
+
+        // Color
+        RGBA8,
+        RED_INTEGER,
+
+        // Depth/stencil
+        DEPTH24STENCIL8,
+
+        // Defaults
+        Depth = DEPTH24STENCIL8
+    };
+
+    struct FrameBufferAttachmentProperties
+    {
+    public:
+        FrameBufferAttachmentProperties() = default;
+        FrameBufferAttachmentProperties(FrameBufferAttachmentFormat format)
+            : AttachmentFormat(format) {}
+
+    public:
+        FrameBufferAttachmentFormat AttachmentFormat = FrameBufferAttachmentFormat::None;
+    };
+
+    struct FrameBufferProperties
+    {
+    public:
+        uint32_t Width = 0;
+        uint32_t Height = 0;
+        uint32_t Samples = 1;
+
+        std::vector<FrameBufferAttachmentProperties> AttachmentProps;
+
+        bool SwapChainTarget = false;
+    };
+
+    class FrameBuffer
+    {
+    public:
+        virtual ~FrameBuffer() = default;
+
+        /**
+         * @brief Binds the framebuffer for rendering.
+         */
+        virtual void Bind() const = 0;
+        /**
+         * @brief Unbinds the current framebuffer.
+         */
+        virtual void Unbind() const = 0;
+
+        /**
+         * @brief Resizes the framebuffer to the specified width and height.
+         * @param width The new width of the framebuffer.
+         * @param height The new height of the framebuffer.
+         */
+        virtual void Resize(uint32_t width, uint32_t height) = 0;
+        /**
+         * @brief Reads a pixel value from the specified attachment at the given coordinates.
+         * @param attachmentIndex The index of the attachment to read from.
+         * @param x The x-coordinate of the pixel to read.
+         * @param y The y-coordinate of the pixel to read.
+         * @return The value of the pixel at the specified coordinates.
+         */
+        virtual int ReadPixel(uint32_t attachmentIndex, int x, int y) = 0;
+
+        /**
+         * @brief Clears the specified attachment with the given value.
+         * @param attachmentIndex The index of the attachment to clear.
+         * @param value The value to clear the attachment with.
+         */
+        virtual void ClearAttachment(uint32_t attachmentIndex, int value) = 0;
+        /**
+         * @brief Gets the renderer ID for the specified attachment.
+         * @param index The index of the attachment to retrieve the ID for.
+         * @return The renderer ID for the specified attachment.
+         */
+        virtual inline uint32_t GetAttachmentRendererID(uint32_t index = 0) const = 0;
+        /**
+         * @brief Gets the properties of the framebuffer.
+         */
+        virtual inline const FrameBufferProperties& GetProperties() const = 0;
+
+        /**
+         * @brief Creates a new window with the specified properties according to the Window Render API.
+         * @return A pointer to the newly created Window object.
+         */
+        static Ref<FrameBuffer> Create(FrameBufferProperties properties);
     };
 }

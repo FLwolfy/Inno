@@ -5,6 +5,30 @@
 
 namespace Inno
 {
+    struct WindowProperties
+    {
+    public:
+        std::string Title;          /// The title of the window.
+        unsigned int Width;         /// The width of the window.
+        unsigned int Height;        /// The height of the window.
+
+    public:
+        WindowProperties(const std::string& title = "Inno Engine",
+            unsigned int width = 1600,
+            unsigned int height = 900)
+            : Title(title), Width(width), Height(height) {}
+    };
+
+    struct WindowData
+    {
+        using EventCallbackFn = std::function<void(Event&)>;    /// Event callback function type.
+    public:
+        std::string Title;                /// The title of the window.
+        unsigned int Width, Height;       /// The width and height of the window.
+        bool VSync;                       /// Flag indicating whether VSync is enabled.
+        EventCallbackFn EventCallback;    /// Callback function for handling events.
+    };
+
     class Window
     {
     public:
@@ -14,29 +38,6 @@ namespace Inno
         {
             None = 0,   /// No specific rendering API selected.
             OpenGL      /// OpenGL rendering API.
-        };
-
-        struct WindowProperties
-        {
-        public:
-            std::string Title;          /// The title of the window.
-            unsigned int Width;         /// The width of the window.
-            unsigned int Height;        /// The height of the window.
-
-        public:
-            WindowProperties(const std::string& title = "Inno Engine",
-                unsigned int width = 1600,
-                unsigned int height = 900)
-                : Title(title), Width(width), Height(height) {}
-        };
-
-        struct WindowData
-        {
-        public:
-            std::string Title;                /// The title of the window.
-            unsigned int Width, Height;       /// The width and height of the window.
-            bool VSync;                       /// Flag indicating whether VSync is enabled.
-            EventCallbackFn EventCallback;    /// Callback function for handling events.
         };
 
     public:

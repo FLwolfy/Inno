@@ -19,19 +19,21 @@ namespace Inno
          * @return Reference to the singleton Application instance.
          */
         inline static Application& Get() { return *s_Instance; }
-
         /**
          * @brief Returns the window associated with the application.
          * @return Reference to the application's window.
          */
         inline Window& GetWindow() { return *m_Window; }
+        /**
+         * @brief Sets whether the Imgui Layer will handle the events.
+         */
+        inline void SetImGuiBlock(bool block) { m_ImGuiLayer->SetBlockEvent(block); }
 
         /**
          * @brief Pushes a layer onto the application's layer stack.
          * @param layer Pointer to the layer to be pushed.
          */
         void PushLayer(Layer* layer);
-
         /**
          * @brief Pushes an overlay onto the application's layer stack.
          * @param layer Pointer to the layer to be pushed.
@@ -48,17 +50,14 @@ namespace Inno
          * @brief Runs the main application loop.
          */
         void Run();
-
         /**
          * @brief Initializes the application window.
          */
         void Init();
-
         /**
          * @brief Initiates the application settings at the very beginning right after the construtor.
          */
         virtual void InitSettings() = 0;
-
         /**
          * @brief Starts the application after the Initialization.
          */
@@ -74,6 +73,7 @@ namespace Inno
         float m_LastFrameTime = 0.0f;
 
     private:
+        void HandleDockspaceGui();
         bool OnWindowClose(WindowCloseEvent& event);
     };
 

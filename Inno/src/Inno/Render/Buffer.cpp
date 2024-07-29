@@ -51,4 +51,26 @@ namespace Inno
 			}
 		}
 	}
+
+	Ref<FrameBuffer> FrameBuffer::Create(FrameBufferProperties properties)
+	{
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::API::None:
+			{
+				// Temporary not support None API case
+				INNO_CORE_ASSERT(false, "RendererAPI::None current not supported!");
+				return nullptr;
+			}
+			case RendererAPI::API::OpenGL:
+			{
+				return CreateRef<OpenGLFrameBuffer>(properties);
+			}
+			default:
+			{
+				INNO_CORE_ASSERT(false, "Unknown RendererAPI!");
+				return nullptr;
+			}
+		}
+	}
 }

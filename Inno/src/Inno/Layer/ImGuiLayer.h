@@ -18,11 +18,17 @@ namespace Inno
          * @brief Called when the layer is detached from the layer stack.
          * Cleans up ImGui resources.
          */
-        virtual void OnDetach() = 0;   
+        virtual void OnDetach() = 0;
+        /**
+         * @brief Called when an event occurs.
+         * @param event The event that occurred.
+         */
+        virtual void OnEvent(Event& event) = 0;
         /**
          * @brief Called in between the Begin() and End() for rendering ImGui windows.
          */
         virtual void OnGuiRender() = 0;
+
         /**
          * @brief Begins the ImGui window rendering.
          */
@@ -31,6 +37,10 @@ namespace Inno
          * @brief Ends the ImGui window rendering.
          */
         virtual void End() = 0;
+        /**
+         * @brief Sets whether the Imgui events will block the other events for handling.
+         */
+        virtual void SetBlockEvent(bool doBlockEvents) = 0;
 
         /**
          * @brief Creates a ImGuiLayer with the specified properties according to the Window Render API.
