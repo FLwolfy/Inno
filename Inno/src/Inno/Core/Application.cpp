@@ -51,14 +51,14 @@ namespace Inno
 		// DEBUG: LOG EVENT DETAILS
 		// INNO_CORE_LOGTRACE(event);
 
-		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
+		for (auto layer = m_LayerStack.rbegin(); layer != m_LayerStack.rend(); ++layer)
 		{
 			if (event.IsHandled)
 			{
 				break;
 			}
 
-			(*it)->OnEvent(event);
+			(*layer)->OnEvent(event);
 		}
 	}
 

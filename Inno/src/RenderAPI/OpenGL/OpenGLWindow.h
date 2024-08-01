@@ -29,6 +29,23 @@ namespace Inno
          */
         virtual float GetWindowTime() const override;
 
+        /**
+         * @brief Retrieves the current state of the specified key.
+         * @param key The key to check.
+         * @return The current state of the key.
+         */
+        virtual InputState GetKeyState(int key) const override;
+        /**
+         * @brief Retrieves the current state of the specified mousebutton.
+         * @param button The mouse button to check.
+         * @return The current state of the mouse button.
+         */
+        virtual InputState GetMouseButtonState(int button) const override;
+        /**
+         * @brief Retrieves the current position of the cursors.
+         */
+        virtual glm::vec2 GetCursorPosPosition() const override;
+
     private:
         static unsigned int s_GLFWWindowCount;
 	};

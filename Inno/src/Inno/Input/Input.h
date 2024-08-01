@@ -7,9 +7,14 @@
 
 namespace Inno
 {
-    /**
-     * @brief Static class for handling input queries.
-     */
+    enum class InputState
+    {
+        None = 0,
+		Pressed,
+		Released,
+        Repeat
+	};
+
     class Input
     {
     public:

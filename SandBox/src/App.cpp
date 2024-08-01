@@ -13,6 +13,13 @@ public:
 
 		// Vertex Array Create
 		m_VA = Inno::VertexArray::Create();
+
+		// Frame Buffer Create
+		Inno::FrameBufferProperties FBprop;
+		FBprop.AttachmentProps = { Inno::FrameBufferAttachmentFormat::RGBA8, Inno::FrameBufferAttachmentFormat::RED_INTEGER, Inno::FrameBufferAttachmentFormat::Depth };
+		FBprop.Width = 1280;
+		FBprop.Height = 720;
+		m_FB = Inno::FrameBuffer::Create(FBprop);
 	}
 
 	virtual void OnAttach() override
@@ -20,13 +27,6 @@ public:
 		// Camera Initialization
 		m_Camera.SetPosition({ 0.25f, 0.0f, 0.0f });
 		m_Camera.SetRotation({ 0.0f, 0.0f, 0.0f });
-
-		// Frame Buffer Initialization
-		Inno::FrameBufferProperties FBprop;
-		FBprop.AttachmentProps = { Inno::FrameBufferAttachmentFormat::RGBA8, Inno::FrameBufferAttachmentFormat::RED_INTEGER, Inno::FrameBufferAttachmentFormat::Depth };
-		FBprop.Width = 1280;
-		FBprop.Height = 720;
-		m_FB = Inno::FrameBuffer::Create(FBprop);
 
 		// Vertex Array Initialization
 		float vertices[4 * 5] = {

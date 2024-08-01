@@ -36,7 +36,7 @@ namespace Inno
 		 * @brief Sets the rotation of the camera (in degrees).
 		 * @param rotation The new rotation of the camera.
 		 */
-		inline void SetRotation(const glm::vec3 rotation) { m_Rotation = rotation; Recalculate(); }
+		inline void SetRotation(const glm::vec3 rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
 		/**
 		 * @brief Gets the position of the camera.
 		 */
@@ -45,7 +45,7 @@ namespace Inno
 		 * @brief Sets the position of the camera.
 		 * @param position The new position of the camera.
 		 */
-		inline void SetPosition(const glm::vec3 position) { m_Position = position; Recalculate(); }
+		inline void SetPosition(const glm::vec3 position) { m_Position = position; RecalculateViewMatrix(); }
 
 		/**
 		 * @brief Retrieves the view projection matrix of the camera.
@@ -63,8 +63,6 @@ namespace Inno
 	protected:
 		float m_AspectRatio = 1.0f;
 		float m_ZoomLevel = 1.0f;
-		float m_TranslationSpeed = 1.0f;
-		float m_RotationSpeed = 180.0f;
 
 		glm::mat4 m_ProjectionMatrix;
 		glm::mat4 m_ViewMatrix;
@@ -74,14 +72,17 @@ namespace Inno
 		glm::vec3 m_Rotation = { 0.0f,0.0f,0.0f };
 
 	protected:
-		void Recalculate();
+		void RecalculateViewMatrix();
 		void SetViewProjectionMatrix();
+		void RecalculateSpeedMultiplier();
 
 	private:
+		float m_SpeedMultiplier;
 		glm::mat4 m_ReverseRotationMatrix = glm::mat4(1.0f);
 
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& event);
+		bool OnWindowResized(WindowResizeEvent& event);
 	};
 
 

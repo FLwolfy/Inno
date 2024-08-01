@@ -2,6 +2,9 @@
 
 #include "Inno/Event/Event.h"
 #include "Inno/Render/GraphicsContext.h"
+#include "Inno/Input/Input.h"
+
+#include <glm/glm.hpp>
 
 namespace Inno
 {
@@ -62,6 +65,23 @@ namespace Inno
          * @brief Gets the current frame time of this window render.
          */
         virtual float GetWindowTime() const = 0;
+
+        /**
+		 * @brief Retrieves the current state of the specified key.
+		 * @param key The key to check.
+		 * @return The current state of the key.
+		 */
+        virtual InputState GetKeyState(int key) const = 0;
+        /**
+         * @brief Retrieves the current state of the specified mousebutton.
+         * @param button The mouse button to check.
+         * @return The current state of the mouse button.
+         */
+        virtual InputState GetMouseButtonState(int button) const = 0;
+        /**
+         * @brief Retrieves the current position of the cursors.
+         */
+        virtual glm::vec2 GetCursorPosPosition() const = 0;
 
         /**
          * @brief Retrieves the width of the window.
