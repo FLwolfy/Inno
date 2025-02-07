@@ -16,7 +16,11 @@ public:
 
 		// Frame Buffer Create
 		Inno::FrameBufferProperties FBprop;
-		FBprop.AttachmentProps = { Inno::FrameBufferAttachmentFormat::RGBA8, Inno::FrameBufferAttachmentFormat::RED_INTEGER, Inno::FrameBufferAttachmentFormat::Depth };
+        FBprop.AttachmentProps = {
+            Inno::FrameBufferAttachmentFormat::RGBA8,
+            Inno::FrameBufferAttachmentFormat::RED_INTEGER,
+            Inno::FrameBufferAttachmentFormat::Depth
+        };
 		FBprop.Width = 1280;
 		FBprop.Height = 720;
 		m_FB = Inno::FrameBuffer::Create(FBprop);
@@ -41,7 +45,7 @@ public:
 		VB->SetLayout({
 			{ Inno::ShaderDataType::Float3, "a_Position" },
 			{ Inno::ShaderDataType::Float2, "a_TexCoord" }
-			});
+        });
 
 		uint32_t indices[6] = { 0, 1, 2, 2, 3, 0 };
 		Inno::Ref<Inno::IndexBuffer> IB = Inno::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));

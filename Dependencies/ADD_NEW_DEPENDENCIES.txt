@@ -1,0 +1,19 @@
+#########################################################################################
+########## To add new dependencies, you should add the dependencies as follows ##########
+#########################################################################################
+
+-- Dependencies
+  -- dependencies.lua     <- the dependencies tracker
+  -- NEW DEPENDENCY
+    -- src                <- the external code file
+    -- premake5.lua       <- the premake file
+
+#####################################################################
+########## Then, add your Includes inside dependencies.lua ##########
+#####################################################################
+
+IncludeLuas["NEW DEPENDENCY"] = "Dependencies/NEW DEPENDENCY"
+
+IncludeDirs["NEW DEPENDENCY"] = "%{wks.location}/Dependencies/{NEW DEPENDENCY INCLUDES}"
+
+IncludeProjs["NEW DEPENDENCY"] = "DEPENDENCY PROJECT NAME"
