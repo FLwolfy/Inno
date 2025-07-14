@@ -1,6 +1,7 @@
 # INNO
 
 Personal Game Engine Development: Inno Game Engine.
+The main active development is currently happening in the [**Inno-2D**](https://github.com/FLwolfy/Inno-2D) repository — a 2D-focused branch of the Inno engine, designed for orthographic rendering and lightweight games.
 
 # TUTORIALS
 
